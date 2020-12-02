@@ -1,7 +1,14 @@
-import '../styles/globals.css'
+import { ApolloProvider } from "@apollo/client";
+import "../styles/globals.css";
+import { withApollo } from "../utils";
+import AuthProvider from "../components/Auth/authProvider";
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+const App = ({ Component, pageProps, apollo }) => (
+  <ApolloProvider client={apollo}>
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
+  </ApolloProvider>
+);
 
-export default MyApp
+export default withApollo(App);
