@@ -11,7 +11,7 @@ const AuthProvider = (props) => {
 
   useEffect(() => {
     const token = Cookie.get("token");
-    localStorage.setItem("token", token);
+    if (token) localStorage.setItem("token", token);
     Cookie.remove("token");
   }, []);
 
