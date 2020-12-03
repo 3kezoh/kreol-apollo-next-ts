@@ -1,13 +1,6 @@
-import { useQuery, gql } from "@apollo/client";
-import { withApollo } from "../utils";
-
-const ME = gql`
-  query {
-    me {
-      email
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { withApollo } from "../apollo";
+import { ME } from "../graphql/auth/queries";
 
 const Me = () => {
   const { loading, error, data } = useQuery(ME);
