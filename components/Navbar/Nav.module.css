@@ -1,0 +1,11 @@
+.header {
+  position: relative;
+  z-index: 1;
+}
+
+@media screen and (min-width: 1024px) {
+  .header {
+    position: sticky;
+    top: 0;
+  }
+}

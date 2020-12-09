@@ -1,4 +1,5 @@
-import { useAuth } from "../Auth/AuthContext";
+import { useAuth } from "../Auth";
+import { Button } from "../Bulma";
 
 const Google = () => {
   const { withGoogle } = useAuth();
@@ -8,13 +9,7 @@ const Google = () => {
     await withGoogle();
   };
 
-  return (
-    <>
-      <button type="submit" onClick={onClick}>
-        Log in with google
-      </button>
-    </>
-  );
+  return <Button onClick={onClick}>Log in with google</Button>;
 };
 
 export default Google;

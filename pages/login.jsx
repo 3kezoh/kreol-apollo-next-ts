@@ -1,11 +1,15 @@
 import { useState } from "react";
-import { useAuth } from "../components/Auth/AuthContext";
+import { useRouter } from "next/router";
+import { useAuth } from "../components/Auth";
+import { Button, Control, Input, Label } from "../components/Bulma";
+import Form from "../components/Form";
 import Google from "../components/Google";
 
 const Login = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loading, error, user, login, logout } = useAuth();
+  const { loading, error, user, login } = useAuth();
 
   const validationErrors = {};
 
@@ -16,37 +20,41 @@ const Login = () => {
   }
 
   const onSubmit = async (event) => {
+    if (user.isAuthenticated) {
+      return router.push("/");
+    }
     event.preventDefault();
     await login({ variables: { email, password } });
   };
 
   return (
     <>
-      <button type="submit" onClick={logout}>
-        Log Out
-      </button>
+      <Form onSubmit={onSubmit}>
+        <Label htmlFor="email">
+          Email
+          <Control>
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Control>
+        </Label>
+        <Label htmlFor="password">
+          Password
+          <Control>
+            <Input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Control>
+        </Label>
+        <Button>Log In</Button>
+      </Form>
       <Google />
-      <form onSubmit={onSubmit}>
-        <label htmlFor="email">
-          email
-          <input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        {validationErrors.email && <div>{validationErrors.email}</div>}
-        <label htmlFor="password">
-          password
-          <input
-            id="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        {validationErrors.password && <div>{validationErrors.password}</div>}
-        <button type="submit">Log In</button>
-      </form>
-      {loading && <div>Loading...</div>}
-      {error && <div>{`${error.message} :c`}</div>}
-      {user.isAuthenticated && <div>{`Hello ${user.email}`}</div>}
     </>
   );
 };

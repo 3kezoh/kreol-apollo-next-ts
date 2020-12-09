@@ -1,7 +1,7 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 
 const AuthContext = createContext({
-  user: { isAuthenticated: false, token: null },
+  user: { isAuthenticated: false },
   loading: null,
   data: null,
   error: null,
@@ -11,6 +11,4 @@ const AuthContext = createContext({
   withGoogle: () => new Promise(),
 });
 
-const useAuth = () => useContext(AuthContext);
-
-export { AuthContext, useAuth };
+export default AuthContext;

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useApolloClient } from "@apollo/client";
 import Cookie from "js-cookie";
-import { AuthContext } from "./AuthContext";
+import AuthContext from "./AuthContext";
 import useSignup from "./useSignup";
 import useLogin from "./useLogin";
 
@@ -10,9 +10,19 @@ const AuthProvider = (props) => {
   const apolloClient = useApolloClient();
 
   useEffect(() => {
+    console.log("Checking cookie");
     const token = Cookie.get("token");
-    if (token) localStorage.setItem("token", token);
+    if (token) {
+      localStorage.setItem("token", token);
+      setUser({ isAuthenticated: true });
+    }
     Cookie.remove("token");
+  }, []);
+
+  useEffect(() => {
+    console.log("Checking localStorage");
+    const token = localStorage.getItem("token");
+    if (token) setUser({ isAuthenticated: true });
   }, []);
 
   const withGoogle = async () => {
