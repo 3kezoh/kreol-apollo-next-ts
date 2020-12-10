@@ -4,5 +4,6 @@ export { default as Columns } from "./Columns";
 export { default as Container } from "./Container";
 export { default as Control } from "./Control";
 export { default as Field } from "./Field";
+export { default as Flex } from "./Flex";
 export { default as Input } from "./Input";
 export { default as Label } from "./Label";

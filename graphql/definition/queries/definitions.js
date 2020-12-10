@@ -15,4 +15,4 @@ const DEFINITIONS = gql`
   }
 `;
 
-module.exports = DEFINITIONS;
+export default DEFINITIONS;

@@ -6,6 +6,7 @@ export { default as Footer } from "./Footer";
 export { default as Form } from "./Form";
 export { default as Google } from "./Google";
 export { default as Layout } from "./Layout";
+export { default as LogInButton } from "./LogInButton";
 export { default as Navbar } from "./Navbar";
 export { default as Searchbar } from "./Searchbar";
 export { default as Section } from "./Section";
