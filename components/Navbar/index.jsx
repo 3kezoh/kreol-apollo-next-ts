@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useAuth } from "../Auth";
 import styles from "./Nav.module.css";
 import { Columns, Column, Container, Button, Flex } from "../Bulma";
@@ -11,10 +12,18 @@ const Navbar = () => {
 
   return (
     <header className={styles.header}>
-      <nav className="has-background-dark">
+      <nav className="has-background-dark" role="navigation" aria-label="main navigation">
         <Container isMaxDesktop>
           <Columns>
-            <Column isOneFifth>Logo</Column>
+            <Column isOneFifth>
+              <Flex justifyContent="center">
+                <Link href="/">
+                  <a href="/" className="button is-light">
+                    Home
+                  </a>
+                </Link>
+              </Flex>
+            </Column>
             <Column>
               <Flex>
                 <Searchbar />
@@ -22,7 +31,7 @@ const Navbar = () => {
                 {user.isAuthenticated ? (
                   <Button onClick={logout}>Log out</Button>
                 ) : (
-                  <Flex>
+                  <Flex justifyContent="center">
                     <SignUpButton />
                     <LogInButton />
                   </Flex>

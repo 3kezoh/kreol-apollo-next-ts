@@ -3,7 +3,7 @@ const Definition = ({ data: { word, meaning, example, author } }) => (
     <h1 className="title">{word}</h1>
     <p>{meaning}</p>
     <p className="is-italic">{example}</p>
-    <p>{`by ${author.email}`}</p>
+    <p>{`by ${author.name}`}</p>
   </article>
 );
 

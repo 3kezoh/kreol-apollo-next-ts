@@ -4,8 +4,8 @@ import { useQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { withApollo } from "../apollo";
 import { DEFINITIONS } from "../graphql/definition/queries";
-import { Columns, Column } from "../components/Bulma";
-import { Definition, Navbar, Layout } from "../components";
+import { Columns, Column, Section } from "../components/Bulma";
+import { Definition, Navbar, Layout, Sidebar } from "../components";
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -27,18 +27,20 @@ const Home = () => {
       <Layout>
         <Columns>
           <Column isOneFifth isHiddenMobile>
-            Sidebar
+            <Sidebar />
           </Column>
           <Column isTwoThirds="desktop" isFourFifths="tablet">
-            <InfiniteScroll
-              dataLength={definitions.length}
-              next={next}
-              hasMore
-              scrollThreshold={0.9}>
-              {definitions.map(({ id, ...data }) => (
-                <Definition key={id} data={data} />
-              ))}
-            </InfiniteScroll>
+            <Section>
+              <InfiniteScroll
+                dataLength={definitions.length}
+                next={next}
+                hasMore
+                scrollThreshold={0.9}>
+                {definitions.map(({ id, ...data }) => (
+                  <Definition key={id} data={data} />
+                ))}
+              </InfiniteScroll>
+            </Section>
           </Column>
         </Columns>
       </Layout>

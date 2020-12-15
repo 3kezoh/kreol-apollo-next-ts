@@ -1,9 +1,13 @@
 import classNames from "classnames";
 
-const Column = ({ isOneFifth, isTwoThirds, isFourFifths, isHiddenMobile, children }) => {
+const Column = ({ m, p, isOneFifth, isTwoThirds, isFourFifths, isHiddenMobile, children }) => {
   const classes = {
     "is-hidden-mobile": isHiddenMobile,
   };
+
+  if (m) classes[`m-${m}`] = true;
+
+  if (p) classes[`p-${p}`] = true;
 
   if (isOneFifth)
     classes[`is-one-fifth${typeof isOneFifth === "string" ? `-${isOneFifth}` : ""}`] = true;

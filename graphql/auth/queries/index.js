@@ -1,4 +1,2 @@
-import VERIFY from "./verify";
-import ME from "./me";
-
-export { VERIFY, ME };
+export { default as VERIFY } from "./verify";
+export { default as ME } from "./me";

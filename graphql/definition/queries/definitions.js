@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const DEFINITIONS = gql`
-  query Definitions($author: ID, $page: Int) {
-    definitions(author: $author, page: $page) {
+  query Definitions($author: ID, $word: String, $page: Int) {
+    definitions(filter: { author: $author, word: $word }, page: $page) {
       id
       word
       meaning
@@ -10,6 +10,7 @@ const DEFINITIONS = gql`
       author {
         id
         email
+        name
       }
     }
   }

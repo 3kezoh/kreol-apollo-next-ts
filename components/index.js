@@ -9,6 +9,5 @@ export { default as Layout } from "./Layout";
 export { default as LogInButton } from "./LogInButton";
 export { default as Navbar } from "./Navbar";
 export { default as Searchbar } from "./Searchbar";
-export { default as Section } from "./Section";
 export { default as Sidebar } from "./Sidebar";
 export { default as User } from "./User";
