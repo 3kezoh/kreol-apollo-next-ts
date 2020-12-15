@@ -12,6 +12,7 @@ const DEFINITIONS = gql`
         email
         name
       }
+      createdAt
     }
   }
 `;
