@@ -1,0 +1,43 @@
+.definition {
+  background: #fff;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.buttons p {
+  margin: 0 !important;
+}
+
+.score {
+  padding: 0 1rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .definition {
+    padding-left: 60px !important;
+    position: relative;
+  }
+
+  .buttons {
+    width: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .buttons button {
+    width: 20px !important;
+    height: 40px !important;
+  }
+
+  .score {
+    padding: 0.5rem 0;
+  }
+}

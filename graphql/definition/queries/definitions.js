@@ -7,6 +7,7 @@ const DEFINITIONS = gql`
       word
       meaning
       example
+      score
       author {
         id
         email

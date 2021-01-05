@@ -1,18 +1,22 @@
 import Head from "next/head";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { withApollo } from "../apollo";
-import { DEFINITIONS as query } from "../graphql/definition/queries";
-import { Columns, Column, Section } from "../components/Bulma";
-import { Definition, Navbar, Layout, Sidebar } from "../components";
+import { withApollo } from "../../apollo";
+import { DEFINITIONS as query } from "../../graphql/definition/queries";
+import { Columns, Column, Section } from "../../components/Bulma";
+import { Definition, Navbar, Layout, Sidebar } from "../../components";
 
-const Home = () => {
+const Word = () => {
+  const router = useRouter();
+  const { word } = router.query;
   const [page, setPage] = useState(1);
   const [definitions, setDefinitions] = useState([]);
-  const variables = { page };
+  const variables = { word, page };
   const onCompleted = (data) => setDefinitions([...definitions, ...data.definitions]);
-  useQuery(query, { variables, onCompleted });
+  const options = { variables, onCompleted };
+  useQuery(query, options);
 
   const next = () => {
     setPage(page + 1);
@@ -37,7 +41,7 @@ const Home = () => {
                 hasMore
                 scrollThreshold={0.9}>
                 {definitions.map(({ id, ...data }) => (
-                  <Definition key={id} data={{ ...data, id }} />
+                  <Definition key={id} data={data} />
                 ))}
               </InfiniteScroll>
             </Section>
@@ -48,4 +52,4 @@ const Home = () => {
   );
 };
 
-export default withApollo(Home);
+export default withApollo(Word);
