@@ -6,6 +6,7 @@ const VOTE = gql`
       definition {
         score
       }
+      action
     }
   }
 `;

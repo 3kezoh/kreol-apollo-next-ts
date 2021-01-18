@@ -6,12 +6,13 @@ import { useState, useRef, useEffect } from "react";
 import styles from "./Definition.module.css";
 import { Button } from "../Bulma";
 import { useIntersecting } from "../../hooks";
-import { VOTE } from "../../graphql/vote/mutations";
+import { VOTE as VOTE_MUTATION } from "../../graphql/vote/mutations";
+import { VOTE as VOTE_QUERY } from "../../graphql/vote/queries";
 
 const FORMAT = "d MMMM yyyy";
-const POLL_INTERVAL = 10_000;
+const POLL_INTERVAL = 1000000000000000_10_000;
 
-const DEFINITION = gql`
+const DEFINITION_QUERY = gql`
   query Definition($id: ID!) {
     definition(id: $id) {
       score
@@ -20,18 +21,34 @@ const DEFINITION = gql`
 `;
 
 const Definition = ({ data: { id, word, meaning, example, author, score: _score, createdAt } }) => {
-  const [score, setScore] = useState(_score);
   const ref = useRef();
   const isIntersecting = useIntersecting(ref);
-  const variables = { id };
-  const { data, startPolling, stopPolling } = useQuery(DEFINITION, { variables });
-  const onVote = (data) => setScore(data.vote.definition.score);
-  const [vote] = useMutation(VOTE, { onCompleted: onVote });
+  const [score, setScore] = useState(_score);
+  const [action, setAction] = useState(0);
   const date = format(new Date(createdAt), FORMAT, { locale });
 
-  useEffect(() => {
-    if (data) setScore(data.definition.score);
-  }, [data]);
+  const { startPolling, stopPolling } = useQuery(DEFINITION_QUERY, {
+    variables: { id },
+    onCompleted: ({ definition }) => {
+      if (definition) setScore(definition.score);
+    },
+  });
+
+  useQuery(VOTE_QUERY, {
+    variables: { definition: id },
+    onCompleted: ({ vote }) => {
+      if (vote) setAction(vote.action);
+    },
+  });
+
+  const [vote] = useMutation(VOTE_MUTATION, {
+    onCompleted: ({ vote }) => {
+      if (vote) {
+        setScore(vote.definition.score);
+        setAction(vote.action);
+      }
+    },
+  });
 
   useEffect(() => {
     stopPolling();
@@ -43,6 +60,7 @@ const Definition = ({ data: { id, word, meaning, example, author, score: _score,
 
   const upvote = () => vote({ variables: { definition: id, action: 1 } });
   const downvote = () => vote({ variables: { definition: id, action: -1 } });
+  const unvote = () => vote({ variables: { definition: id, action: 0 } });
 
   return (
     <article ref={ref} className={`content p-5 ${styles.definition}`}>
@@ -55,9 +73,11 @@ const Definition = ({ data: { id, word, meaning, example, author, score: _score,
       {example && <p className="is-italic">{example}</p>}
       <p>{`Posté le ${date} par ${author.name}`}</p>
       <div className={styles.buttons}>
-        <Button onClick={upvote}>u</Button>
+        <Button onClick={action === 1 ? unvote : upvote}>{action === 1 ? "upvoted" : "up"}</Button>
         <p className={styles.score}>{score}</p>
-        <Button onClick={downvote}>d</Button>
+        <Button onClick={action === -1 ? unvote : downvote}>
+          {action === -1 ? "downvoted" : "down"}
+        </Button>
       </div>
     </article>
   );
