@@ -40,8 +40,8 @@ const Word = () => {
                 next={next}
                 hasMore
                 scrollThreshold={0.9}>
-                {definitions.map(({ id, ...data }) => (
-                  <Definition key={id} data={data} />
+                {definitions.map((data) => (
+                  <Definition key={data.id} data={data} />
                 ))}
               </InfiniteScroll>
             </Section>
