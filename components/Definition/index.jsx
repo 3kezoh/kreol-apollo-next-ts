@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { format } from "date-fns";
 import { fr as locale } from "date-fns/locale";
 import styles from "./Definition.module.css";
 import { Button } from "../Bulma";
 import { useIntersecting } from "../../hooks";
-import { VOTE as VOTE_MUTATION } from "../../graphql/vote/mutations";
-import { VOTE as VOTE_QUERY } from "../../graphql/vote/queries";
+import { useAuth } from "../Auth";
 
 const DATE_FORMAT = "d MMMM yyyy";
 const POLL_INTERVAL = 1000000_10_000;
@@ -20,11 +20,32 @@ const GET_SCORE = gql`
   }
 `;
 
+const VOTE_QUERY = gql`
+  query Vote($id: ID!) {
+    vote(definition: $id) {
+      action
+    }
+  }
+`;
+
+const VOTE_MUTATION = gql`
+  mutation Vote($id: ID!, $action: Int!) {
+    vote(definition: $id, action: $action) {
+      definition {
+        score
+      }
+      action
+    }
+  }
+`;
+
 const Definition = ({ data: { id, word, meaning, example, author, score: _score, createdAt } }) => {
   const ref = useRef();
   const isIntersecting = useIntersecting(ref);
   const [score, setScore] = useState(_score);
   const [action, setAction] = useState(0);
+  const { user } = useAuth();
+  const router = useRouter();
   const date = format(new Date(createdAt), DATE_FORMAT, { locale });
 
   const { startPolling, stopPolling } = useQuery(GET_SCORE, {
@@ -36,7 +57,7 @@ const Definition = ({ data: { id, word, meaning, example, author, score: _score,
   });
 
   useQuery(VOTE_QUERY, {
-    variables: { definition: id },
+    variables: { id },
     onCompleted: ({ vote }) => {
       if (vote) setAction(vote.action ?? 0);
     },
@@ -60,9 +81,14 @@ const Definition = ({ data: { id, word, meaning, example, author, score: _score,
     };
   }, [isIntersecting]);
 
-  const upvote = () => vote({ variables: { definition: id, action: 1 } });
-  const downvote = () => vote({ variables: { definition: id, action: -1 } });
-  const unvote = () => vote({ variables: { definition: id, action: 0 } });
+  const _vote = (action) => {
+    if (!user.isAuthenticated) return router.push("/signup");
+    return vote({ variables: { id, action } });
+  };
+
+  const upvote = () => _vote(1);
+  const downvote = () => _vote(-1);
+  const unvote = () => _vote(0);
 
   return (
     <article ref={ref} className={`content p-5 ${styles.definition}`}>

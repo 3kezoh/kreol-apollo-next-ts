@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useAuth } from "../components/Auth";
-import { Button, Control, Input, Label } from "../components/Bulma";
-import Form from "../components/Form";
-import Google from "../components/Google";
+import { Button, Control, Input, Label, Section } from "../components/Bulma";
+import { Form, Google, Layout } from "../components";
 
 const Login = () => {
   const router = useRouter();
@@ -25,36 +24,41 @@ const Login = () => {
     }
     event.preventDefault();
     await login({ variables: { email, password } });
+    return router.push("/");
   };
 
   return (
     <>
-      <Form onSubmit={onSubmit}>
-        <Label htmlFor="email">
-          Email
-          <Control>
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Control>
-        </Label>
-        <Label htmlFor="password">
-          Password
-          <Control>
-            <Input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Control>
-        </Label>
-        <Button>Log In</Button>
-      </Form>
-      <Google />
+      <Layout>
+        <Section>
+          <Form onSubmit={onSubmit}>
+            <Label htmlFor="email">
+              Email
+              <Control>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Control>
+            </Label>
+            <Label htmlFor="password">
+              Password
+              <Control>
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Control>
+            </Label>
+            <Button>Log In</Button>
+          </Form>
+          <Google />
+        </Section>
+      </Layout>
     </>
   );
 };
