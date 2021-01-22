@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Head from "next/head";
 import { useRouter } from "next/router";
+import Head from "next/head";
 import { gql, useMutation } from "@apollo/client";
 import { Form, Layout } from "../components";
 import { Section, Label, Control, Input, Textarea, Button } from "../components/Bulma";
@@ -15,12 +15,12 @@ const CREATE_DEFINITION = gql`
 `;
 
 const Define = () => {
+  const router = useRouter();
+  const { user } = useAuth();
   const [word, setWord] = useState("");
   const [meaning, setMeaning] = useState("");
   const [example, setExample] = useState("");
   const [errors, setErrors] = useState({});
-  const { user } = useAuth();
-  const router = useRouter();
 
   const [createDefinition] = useMutation(CREATE_DEFINITION, {
     onCompleted: () => router.push("/"),

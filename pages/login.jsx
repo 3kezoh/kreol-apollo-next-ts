@@ -1,34 +1,41 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useAuth } from "../components/Auth";
+import Head from "next/head";
 import { Button, Control, Input, Label, Section } from "../components/Bulma";
 import { Form, Google, Layout } from "../components";
+import { useAuth } from "../components/Auth";
 
 const Login = () => {
   const router = useRouter();
+  const { loginError, user, login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loading, error, user, login } = useAuth();
 
-  const validationErrors = {};
+  const errors = {};
 
-  if (error && error.graphQLErrors[0].extensions.validationErrors) {
-    error.graphQLErrors[0].extensions.validationErrors.forEach(({ field, message }) => {
-      validationErrors[field] = message;
+  if (loginError) {
+    loginError.graphQLErrors.forEach(({ extensions }) => {
+      if (extensions.validationErrors) {
+        extensions.validationErrors.forEach(({ field, message }) => {
+          errors[field] = message;
+        });
+      }
     });
   }
 
   const onSubmit = async (event) => {
+    event.preventDefault();
     if (user.isAuthenticated) {
       return router.push("/");
     }
-    event.preventDefault();
-    await login({ variables: { email, password } });
-    return router.push("/");
+    return login({ variables: { email, password } });
   };
 
   return (
     <>
+      <Head>
+        <title>Login</title>
+      </Head>
       <Layout>
         <Section>
           <Form onSubmit={onSubmit}>
@@ -43,6 +50,7 @@ const Login = () => {
                 />
               </Control>
             </Label>
+            {errors.email && <div>{errors.email}</div>}
             <Label htmlFor="password">
               Password
               <Control>
@@ -54,6 +62,7 @@ const Login = () => {
                 />
               </Control>
             </Label>
+            {errors.password && <div>{errors.password}</div>}
             <Button>Log In</Button>
           </Form>
           <Google />

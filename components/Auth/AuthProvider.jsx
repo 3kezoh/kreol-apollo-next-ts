@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import { useApolloClient } from "@apollo/client";
 import Cookie from "js-cookie";
 import AuthContext from "./AuthContext";
@@ -7,6 +8,7 @@ import useLogin from "./useLogin";
 
 const AuthProvider = (props) => {
   const [user, setUser] = useState({ isAuthenticated: false });
+  const router = useRouter();
   const apolloClient = useApolloClient();
 
   useEffect(() => {
@@ -32,11 +34,13 @@ const AuthProvider = (props) => {
   const onLogin = ({ login: { token, user } }) => {
     setUser({ ...user, isAuthenticated: true });
     localStorage.setItem("token", token);
+    router.push("/");
   };
 
   const onSignup = ({ signup: { token, user } }) => {
     setUser({ ...user, isAuthenticated: true });
     localStorage.setItem("token", token);
+    router.push("/");
   };
 
   const onError = (error) => console.error(error);
@@ -56,7 +60,8 @@ const AuthProvider = (props) => {
       value={{
         user,
         loading: loginLoading || signupLoading,
-        error: loginError || signupError,
+        loginError,
+        signupError,
         login,
         signup,
         logout,
