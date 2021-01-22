@@ -1,21 +1,37 @@
 import Head from "next/head";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { withApollo } from "../../apollo";
-import { DEFINITIONS } from "../../graphql/definition/queries";
 import { Columns, Column, Section } from "../../components/Bulma";
 import { Definition, Navbar, Layout, Sidebar } from "../../components";
 
-const Word = () => {
+const GET_DEFINITIONS_BY_AUTHOR = gql`
+  query Definitions($author: String!, $page: Int) {
+    definitions(filter: { author: $author }, page: $page) {
+      id
+      word
+      meaning
+      example
+      score
+      author {
+        id
+        name
+      }
+      createdAt
+    }
+  }
+`;
+
+const User = () => {
   const router = useRouter();
-  const { word } = router.query;
+  const { author } = router.query;
   const [page, setPage] = useState(1);
   const [definitions, setDefinitions] = useState([]);
 
-  useQuery(DEFINITIONS, {
-    variables: { word, page },
+  useQuery(GET_DEFINITIONS_BY_AUTHOR, {
+    variables: { author, page },
     onCompleted: (data) => setDefinitions([...definitions, ...data.definitions]),
   });
 
@@ -26,7 +42,7 @@ const Word = () => {
   return (
     <>
       <Head>
-        <title>Kreol</title>
+        <title>User Profile</title>
       </Head>
       <Navbar />
       <Layout>
@@ -53,4 +69,4 @@ const Word = () => {
   );
 };
 
-export default withApollo(Word);
+export default withApollo(User);

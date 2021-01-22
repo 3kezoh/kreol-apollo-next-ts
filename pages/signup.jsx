@@ -12,7 +12,8 @@ const Signup = () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    await signup({ variables: { email, password, confirmPassword, name: "" } });
+    await signup({ variables: { email, password, confirmPassword, name: "name" } });
+    
   };
 
   return (

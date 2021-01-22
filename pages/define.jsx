@@ -23,6 +23,7 @@ const Define = () => {
   const router = useRouter();
 
   const [createDefinition] = useMutation(CREATE_DEFINITION, {
+    onCompleted: () => router.push("/"),
     onError: ({ graphQLErrors }) => {
       graphQLErrors.forEach(({ extensions }) => {
         if (extensions.validationErrors) {
@@ -39,8 +40,7 @@ const Define = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (!user.isAuthenticated) return router.push("/signup");
-    await createDefinition({ variables: { word, meaning, example } });
-    return router.push("/");
+    return createDefinition({ variables: { word, meaning, example } });
   };
 
   return (

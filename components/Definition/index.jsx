@@ -99,7 +99,12 @@ const Definition = ({ data: { id, word, meaning, example, author, score: _score,
       </h1>
       <p>{meaning}</p>
       {example && <p className="is-italic">{example}</p>}
-      <p>{`Posté le ${date} par ${author.name}`}</p>
+      <p>
+        {`Posté le ${date} par `}
+        <Link href={`/author/${encodeURIComponent(author.name)}`}>
+          <a href={`/author/${encodeURIComponent(author.name)}`}>{author.name}</a>
+        </Link>
+      </p>
       <div className={styles.buttons}>
         <Button onClick={action === 1 ? unvote : upvote}>{action === 1 ? "↑" : "-"}</Button>
         <p className={styles.score}>{score}</p>

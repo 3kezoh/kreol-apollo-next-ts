@@ -14,6 +14,7 @@ const Home = () => {
   useQuery(DEFINITIONS, {
     variables: { page },
     onCompleted: (data) => setDefinitions([...definitions, ...data.definitions]),
+    fetchPolicy: "cache-and-network",
   });
 
   const next = () => {
