@@ -1,5 +1,5 @@
-import Head from "next/head";
 import { useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -17,6 +17,7 @@ const Word = () => {
   useQuery(DEFINITIONS, {
     variables: { word, page },
     onCompleted: (data) => setDefinitions([...definitions, ...data.definitions]),
+    fetchPolicy: "cache-and-network",
   });
 
   const next = () => {
@@ -39,8 +40,9 @@ const Word = () => {
               <InfiniteScroll
                 dataLength={definitions.length}
                 next={next}
-                hasMore
-                scrollThreshold={0.9}>
+                hasMore={definitions.length !== 0}
+                scrollThreshold={0.9}
+              >
                 {definitions.map((data) => (
                   <Definition key={data.id} data={data} />
                 ))}

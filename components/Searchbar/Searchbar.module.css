@@ -5,6 +5,7 @@
 }
 
 .dropdown {
+  background: #fff;
   position: absolute;
   top: calc(100% + 0.75rem);
   width: 100%;
@@ -12,4 +13,12 @@
   border-radius: 4px;
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px rgba(10, 10, 10, 0.02);
   z-index: 1;
+}
+
+.word {
+  color: crimson;
+}
+
+.meaning {
+  margin-left: 0.75rem;
 }

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useLazyQuery } from "@apollo/client";
 import { Input } from "../Bulma";
 import styles from "./Searchbar.module.css";
@@ -35,11 +36,16 @@ const Searchbar = () => {
         className={styles.dropdown}
         style={{ display: (inputFocus || dropdownFocus) && definitions.length ? "block" : "none" }}
         onMouseEnter={() => setDropdownFocus(true)}
-        onMouseLeave={() => setDropdownFocus(false)}>
+        onMouseLeave={() => setDropdownFocus(false)}
+      >
         {definitions.map(({ _id, word, meaning }) => (
           <div key={_id} className="content">
-            <a href="_">{word}</a>
-            <span>{meaning}</span>
+            <Link href={`/word/${encodeURIComponent(word)}`}>
+              <a href={`/word/${encodeURIComponent(word)}`} className={styles.word}>
+                {word}
+              </a>
+            </Link>
+            <span className={styles.meaning}>{meaning}</span>
           </div>
         ))}
       </div>

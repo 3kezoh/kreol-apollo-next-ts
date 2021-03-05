@@ -38,7 +38,8 @@ const Home = () => {
                 dataLength={definitions.length}
                 next={next}
                 hasMore
-                scrollThreshold={0.9}>
+                scrollThreshold={0.9}
+              >
                 {definitions.map((definition) => (
                   <Definition key={definition.id} data={definition} />
                 ))}

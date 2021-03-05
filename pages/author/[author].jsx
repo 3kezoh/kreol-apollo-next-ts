@@ -1,5 +1,5 @@
-import Head from "next/head";
 import { useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { gql, useQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -24,7 +24,7 @@ const GET_DEFINITIONS_BY_AUTHOR = gql`
   }
 `;
 
-const User = () => {
+const Author = () => {
   const router = useRouter();
   const { author } = router.query;
   const [page, setPage] = useState(1);
@@ -55,8 +55,9 @@ const User = () => {
               <InfiniteScroll
                 dataLength={definitions.length}
                 next={next}
-                hasMore
-                scrollThreshold={0.9}>
+                hasMore={definitions.length !== 0}
+                scrollThreshold={0.9}
+              >
                 {definitions.map((data) => (
                   <Definition key={data.id} data={data} />
                 ))}
@@ -69,4 +70,4 @@ const User = () => {
   );
 };
 
-export default withApollo(User);
+export default withApollo(Author);
