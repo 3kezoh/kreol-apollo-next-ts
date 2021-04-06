@@ -1,5 +1,5 @@
-const Label = ({ htmlFor, children }) => (
-  <label htmlFor={htmlFor} className="label">
+const Label = ({ htmlFor, children, className }) => (
+  <label htmlFor={htmlFor} className={className || "label"}>
     {children}
   </label>
 );

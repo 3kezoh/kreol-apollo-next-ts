@@ -12,7 +12,7 @@ const Navbar = () => {
 
   return (
     <header className={styles.header}>
-      <nav className="has-background-dark" role="navigation" aria-label="main navigation">
+      <nav id={styles.nav} role="navigation" aria-label="main navigation">
         <Container isMaxDesktop>
           <Columns>
             <Column isOneFifth>

@@ -92,7 +92,7 @@ const Definition = ({ data: { id, word, meaning, example, author, score: _score,
 
   return (
     <article ref={ref} className={`content p-5 ${styles.definition}`}>
-      <h1 className="title">
+      <h1 id={styles.title}>
         <Link href={`/word/${encodeURIComponent(word)}`}>
           <a href={`/word/${encodeURIComponent(word)}`}>{word}</a>
         </Link>
@@ -102,13 +102,24 @@ const Definition = ({ data: { id, word, meaning, example, author, score: _score,
       <p>
         {`Posté le ${date} par `}
         <Link href={`/author/${encodeURIComponent(author.name)}`}>
-          <a href={`/author/${encodeURIComponent(author.name)}`}>{author.name}</a>
+          <a id={styles.author} href={`/author/${encodeURIComponent(author.name)}`}>
+            {author.name}
+          </a>
         </Link>
       </p>
       <div className={styles.buttons}>
         <Button onClick={action === 1 ? unvote : upvote}>{action === 1 ? "↑" : "-"}</Button>
         <p className={styles.score}>{score}</p>
         <Button onClick={action === -1 ? unvote : downvote}>{action === -1 ? "↓" : "-"}</Button>
+      </div>
+      <div className={styles.reportButton}>
+        <Link href={`/report/${encodeURIComponent(id)}`}>
+          <a href={`/report/${encodeURIComponent(id)}`}>
+            <Button color="danger" buttonStyle="outlined">
+              Report
+            </Button>
+          </a>
+        </Link>
       </div>
     </article>
   );

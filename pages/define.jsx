@@ -3,12 +3,17 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { gql, useMutation } from "@apollo/client";
 import { Form, Layout } from "../components";
-import { Section, Label, Control, Input, Textarea, Button } from "../components/Bulma";
+import { Section, Select, Label, Control, Input, Textarea, Button } from "../components/Bulma";
 import { useAuth } from "../components/Auth";
 
 const CREATE_DEFINITION = gql`
-  mutation CreateDefinition($word: String!, $meaning: String!, $example: String) {
-    createDefinition(word: $word, meaning: $meaning, example: $example) {
+  mutation CreateDefinition(
+    $word: String!
+    $meaning: String!
+    $example: String
+    $language: String!
+  ) {
+    createDefinition(word: $word, meaning: $meaning, example: $example, language: $language) {
       id
     }
   }
@@ -20,6 +25,7 @@ const Define = () => {
   const [word, setWord] = useState("");
   const [meaning, setMeaning] = useState("");
   const [example, setExample] = useState("");
+  const [language, setLanguage] = useState("fr");
   const [errors, setErrors] = useState({});
 
   const [createDefinition] = useMutation(CREATE_DEFINITION, {
@@ -40,7 +46,7 @@ const Define = () => {
   const onSubmit = async (event) => {
     event.preventDefault();
     if (!user.isAuthenticated) return router.push("/signup");
-    return createDefinition({ variables: { word, meaning, example } });
+    return createDefinition({ variables: { word, meaning, example, language } });
   };
 
   return (
@@ -68,7 +74,6 @@ const Define = () => {
               <Control>
                 <Textarea
                   id="meaning"
-                  type="text"
                   value={meaning}
                   onChange={(e) => setMeaning(e.target.value)}
                 />
@@ -87,6 +92,15 @@ const Define = () => {
               </Control>
             </Label>
             {errors.example && <div>{errors.example}</div>}
+            <Label htmlFor="language">
+              Language
+              <Control>
+                <Select id="language" onChange={(e) => setLanguage(e.target.value)}>
+                  <option value="fr">Français</option>
+                  <option value="gy">Créole Guyanais</option>
+                </Select>
+              </Control>
+            </Label>
             <Button type="submit">Submit</Button>
           </Form>
         </Section>

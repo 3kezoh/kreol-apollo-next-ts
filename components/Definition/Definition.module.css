@@ -1,5 +1,5 @@
 .definition {
-  background: #fff;
+  background: var(--snow);
 }
 
 .buttons {
@@ -13,6 +13,11 @@
 
 .score {
   padding: 0 1rem;
+}
+
+.reportButton {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 @media screen and (min-width: 1024px) {

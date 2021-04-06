@@ -1,5 +1,6 @@
 import "bulma/css/bulma.css";
 import "../styles/globals.css";
+import "../styles/colors.css";
 import { ApolloProvider } from "@apollo/client";
 import { withApollo } from "../apollo";
 import AuthProvider from "../components/Auth/AuthProvider";
