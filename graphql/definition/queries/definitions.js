@@ -8,6 +8,7 @@ const DEFINITIONS = gql`
       meaning
       example
       score
+      language
       author {
         id
         email

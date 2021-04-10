@@ -97,7 +97,7 @@ const Define = () => {
               <Control>
                 <Select id="language" onChange={(e) => setLanguage(e.target.value)}>
                   <option value="fr">Français</option>
-                  <option value="gy">Créole Guyanais</option>
+                  <option value="gf">Créole Guyanais</option>
                 </Select>
               </Control>
             </Label>

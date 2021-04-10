@@ -16,8 +16,7 @@
 }
 
 .reportButton {
-  display: flex;
-  flex-direction: row-reverse;
+  margin-left: auto;
 }
 
 @media screen and (min-width: 1024px) {

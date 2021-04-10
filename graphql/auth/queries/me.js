@@ -4,6 +4,7 @@ const ME = gql`
   query {
     me {
       email
+      name
     }
   }
 `;

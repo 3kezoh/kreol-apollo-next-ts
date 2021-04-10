@@ -15,6 +15,7 @@ const GET_DEFINITIONS_BY_AUTHOR = gql`
       meaning
       example
       score
+      language
       author {
         id
         name

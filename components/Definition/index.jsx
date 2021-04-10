@@ -5,7 +5,7 @@ import { gql, useQuery, useMutation } from "@apollo/client";
 import { format } from "date-fns";
 import { fr as locale } from "date-fns/locale";
 import styles from "./Definition.module.css";
-import { Button } from "../Bulma";
+import { Button, Flex } from "../Bulma";
 import { useIntersecting } from "../../hooks";
 import { useAuth } from "../Auth";
 
@@ -39,7 +39,9 @@ const VOTE_MUTATION = gql`
   }
 `;
 
-const Definition = ({ data: { id, word, meaning, example, author, score: _score, createdAt } }) => {
+const Definition = ({
+  data: { id, word, meaning, example, author, score: _score, language, createdAt },
+}) => {
   const ref = useRef();
   const isIntersecting = useIntersecting(ref);
   const [score, setScore] = useState(_score);
@@ -112,15 +114,22 @@ const Definition = ({ data: { id, word, meaning, example, author, score: _score,
         <p className={styles.score}>{score}</p>
         <Button onClick={action === -1 ? unvote : downvote}>{action === -1 ? "↓" : "-"}</Button>
       </div>
-      <div className={styles.reportButton}>
-        <Link href={`/report/${encodeURIComponent(id)}`}>
-          <a href={`/report/${encodeURIComponent(id)}`}>
-            <Button color="danger" buttonStyle="outlined">
-              Report
-            </Button>
-          </a>
-        </Link>
-      </div>
+      <Flex direction="row" alignItems="center">
+        <div className={styles.language}>
+          {language === "fr" ? <span>&#x1F1EB;&#x1F1F7;</span> : <span>&#x1F1EC;&#x1F1EB;</span>}
+          &#x27A1;
+          {language === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
+        </div>
+        <div className={styles.reportButton}>
+          <Link href={`/report/${encodeURIComponent(id)}`}>
+            <a href={`/report/${encodeURIComponent(id)}`}>
+              <Button color="danger" buttonStyle="outlined">
+                Report
+              </Button>
+            </a>
+          </Link>
+        </div>
+      </Flex>
     </article>
   );
 };
