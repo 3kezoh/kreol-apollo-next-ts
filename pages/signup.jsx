@@ -11,6 +11,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [name, setName] = useState("");
 
   const errors = {};
 
@@ -29,7 +30,7 @@ const Signup = () => {
     if (user.isAuthenticated) {
       return router.push("/");
     }
-    return signup({ variables: { email, password, confirmPassword, name: "name" } });
+    return signup({ variables: { email, password, confirmPassword, name } });
   };
 
   return (
@@ -40,6 +41,17 @@ const Signup = () => {
       <Layout>
         <Section>
           <Form onSubmit={onSubmit}>
+            <Label htmlFor="name">
+              Name
+              <Control>
+                <Input
+                  id="name"
+                  type="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Control>
+            </Label>
             <Label htmlFor="email">
               email
               <Control>
