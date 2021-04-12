@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { withApollo } from "../../apollo";
 import { Columns, Column, Section } from "../../components/Bulma";
 import { Definition, Navbar, Layout, Sidebar } from "../../components";
 
 const GET_DEFINITIONS_BY_AUTHOR = gql`
-  query Definitions($author: String!, $page: Int) {
+  query Definitions($author: ID!, $page: Int) {
     definitions(filter: { author: $author }, page: $page) {
       id
       word
@@ -27,14 +27,19 @@ const GET_DEFINITIONS_BY_AUTHOR = gql`
 
 const Author = () => {
   const router = useRouter();
-  const { author } = router.query;
+  const { id: author } = router.query;
   const [page, setPage] = useState(1);
   const [definitions, setDefinitions] = useState([]);
 
-  useQuery(GET_DEFINITIONS_BY_AUTHOR, {
+  const [loadDefinitions] = useLazyQuery(GET_DEFINITIONS_BY_AUTHOR, {
     variables: { author, page },
     onCompleted: (data) => setDefinitions([...definitions, ...data.definitions]),
+    fetchPolicy: "cache-and-network",
   });
+
+  useEffect(() => {
+    if (author) loadDefinitions();
+  }, [author, page]);
 
   const next = () => {
     setPage(page + 1);

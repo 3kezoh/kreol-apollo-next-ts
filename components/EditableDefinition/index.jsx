@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { gql, useQuery, useMutation } from "@apollo/client";
 import { format } from "date-fns";
 import { fr as locale } from "date-fns/locale";
-import styles from "./Definition.module.css";
+import styles from "./EditableDefinition.module.css";
 import { Button, Flex } from "../Bulma";
 import { useIntersecting } from "../../hooks";
 import { useAuth } from "../Auth";
@@ -39,8 +39,9 @@ const VOTE_MUTATION = gql`
   }
 `;
 
-const Definition = ({
-  data: { id, word, meaning, example, author, score: _score, language, createdAt },
+const EditableDefinition = ({
+  data: { id, word, meaning, example, score: _score, language, createdAt },
+  onDelete,
 }) => {
   const ref = useRef();
   const isIntersecting = useIntersecting(ref);
@@ -101,19 +102,7 @@ const Definition = ({
       </h1>
       <p>{meaning}</p>
       {example && <p className="is-italic">{example}</p>}
-      <p>
-        {`Posté le ${date} par `}
-        <Link
-          href={{
-            pathname: `/author/${encodeURIComponent(author.name)}`,
-            query: { id: author.id },
-          }}
-        >
-          <a id={styles.author} href={`/author/${encodeURIComponent(author.name)}`}>
-            {author.name}
-          </a>
-        </Link>
-      </p>
+      <p>{`Posté le ${date}`}</p>
       <div className={styles.buttons}>
         <Button onClick={action === 1 ? unvote : upvote}>{action === 1 ? "↑" : "-"}</Button>
         <p className={styles.score}>{score}</p>
@@ -125,18 +114,18 @@ const Definition = ({
           &#x27A1;
           {language === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
         </div>
-        <div className={styles.reportButton}>
-          <Link href={`/report/${encodeURIComponent(id)}`}>
-            <a href={`/report/${encodeURIComponent(id)}`}>
-              <Button color="danger" buttonStyle="outlined">
-                Report
-              </Button>
-            </a>
-          </Link>
+        <div className={styles.deleteButton}>
+          <Button
+            color="danger"
+            buttonStyle="outlined"
+            onClick={() => onDelete({ variables: { id } })}
+          >
+            Delete
+          </Button>
         </div>
       </Flex>
     </article>
   );
 };
 
-export default Definition;
+export default EditableDefinition;

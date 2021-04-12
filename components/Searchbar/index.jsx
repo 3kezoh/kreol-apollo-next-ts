@@ -38,8 +38,8 @@ const Searchbar = () => {
         onMouseEnter={() => setDropdownFocus(true)}
         onMouseLeave={() => setDropdownFocus(false)}
       >
-        {definitions.map(({ _id, word, meaning }) => (
-          <div key={_id} className="content">
+        {definitions.map(({ id, word, meaning }) => (
+          <div key={id} className="content">
             <Link href={`/word/${encodeURIComponent(word)}`}>
               <a href={`/word/${encodeURIComponent(word)}`} className={styles.word}>
                 {word}

@@ -2,12 +2,13 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useApolloClient } from "@apollo/client";
 import Cookie from "js-cookie";
+import jwt from "jsonwebtoken";
 import AuthContext from "./AuthContext";
 import useSignup from "./useSignup";
 import useLogin from "./useLogin";
 
 const AuthProvider = (props) => {
-  const [user, setUser] = useState({ isAuthenticated: false });
+  const [user, setUser] = useState({ id: null, name: null, isAuthenticated: false });
   const router = useRouter();
   const apolloClient = useApolloClient();
 
@@ -24,7 +25,8 @@ const AuthProvider = (props) => {
   useEffect(() => {
     console.log("Checking localStorage");
     const token = localStorage.getItem("token");
-    if (token) setUser({ isAuthenticated: true });
+    const { sub: id, name } = jwt.decode(token);
+    if (token) setUser({ id, name, isAuthenticated: true });
   }, []);
 
   const withGoogle = async () => {
