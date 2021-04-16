@@ -4,7 +4,7 @@ import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useAuth } from "../components/Auth";
 import { withApollo } from "../apollo";
-import { EditableDefinition, Layout, Navbar } from "../components";
+import { EditableDefinition, Layout, Navbar, UserSettings } from "../components";
 import { Section, Columns, Column } from "../components/Bulma";
 
 const GET_DEFINITIONS = gql`
@@ -65,9 +65,7 @@ const Profile = () => {
       <Layout>
         <Columns>
           <Column isOneFifth isHiddenMobile>
-            <Section>
-              <div className="name">{user.name}</div>
-            </Section>
+            <UserSettings user={user} />
           </Column>
           <Column isTwoThirds="desktop" isFourFifths="tablet">
             <Section>

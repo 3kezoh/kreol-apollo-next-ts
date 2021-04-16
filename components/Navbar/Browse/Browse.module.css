@@ -1,0 +1,32 @@
+@media screen and (min-width: 1024px) {
+  .button {
+    background: none;
+    border: none;
+    color: white;
+    padding: 0 1.5rem;
+  }
+
+  .alphabet {
+    height: auto;
+    display: grid;
+    grid: auto-flow / repeat(7, 1fr);
+    grid-gap: 1rem;
+  }
+
+  .letter {
+    display: block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    background: whitesmoke;
+    text-transform: capitalize;
+    font-weight: 500;
+  }
+
+  .letter:hover {
+    color: whitesmoke;
+    background: var(--carolina-blue);
+  }
+}

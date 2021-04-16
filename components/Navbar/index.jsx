@@ -6,6 +6,8 @@ import LogInButton from "../LogInButton";
 import SignUpButton from "../SignUpButton";
 import DefineButton from "../DefineButton";
 import Searchbar from "../Searchbar";
+import Logo from "../Logo";
+import Browse from "./Browse";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -15,21 +17,34 @@ const Navbar = () => {
       <nav id={styles.nav} role="navigation" aria-label="main navigation">
         <Container isMaxDesktop>
           <Columns>
-            <Column isOneFifth>
-              <Flex justifyContent="center">
-                <Link href="/">
-                  <a href="/" className="button is-light">
-                    Home
-                  </a>
-                </Link>
+            <Column isOneFifth />
+            <Column>
+              <Flex>
+                <Logo />
+                <ul className={styles.list}>
+                  <Browse />
+                  <li></li>
+                </ul>
               </Flex>
             </Column>
+          </Columns>
+        </Container>
+        <Container isMaxDesktop>
+          <Columns>
+            <Column isOneFifth />
             <Column>
               <Flex>
                 <Searchbar />
                 <DefineButton />
                 {user.isAuthenticated ? (
-                  <Button onClick={logout}>Log out</Button>
+                  <Flex>
+                    <Button onClick={logout}>Log out</Button>
+                    <Link href="/profile">
+                      <a href="/profile" className="button is-light">
+                        Profile
+                      </a>
+                    </Link>
+                  </Flex>
                 ) : (
                   <Flex justifyContent="center">
                     <SignUpButton />
