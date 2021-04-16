@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
+import { withApollo } from "../apollo";
 import { Form, Layout } from "../components";
-import { Section, Select, Label, Control, Input, Textarea, Button } from "../components/Bulma";
 import { useAuth } from "../components/Auth";
+import { Button, Control, Input, Label, Section, Select, Textarea } from "../components/Bulma";
+import { handleGraphQLError } from "../utils";
 
 const CREATE_DEFINITION = gql`
   mutation CreateDefinition(
@@ -29,18 +31,8 @@ const Define = () => {
   const [errors, setErrors] = useState({});
 
   const [createDefinition] = useMutation(CREATE_DEFINITION, {
-    onCompleted: () => router.push("/"),
-    onError: ({ graphQLErrors }) => {
-      graphQLErrors.forEach(({ extensions }) => {
-        if (extensions.validationErrors) {
-          const errors = {};
-          extensions.validationErrors.forEach(({ field, message }) => {
-            errors[field] = message;
-          });
-          setErrors(errors);
-        }
-      });
-    },
+    onCompleted: () => router.back(),
+    onError: ({ graphQLErrors }) => handleGraphQLError({ graphQLErrors, setErrors }),
   });
 
   const onSubmit = async (event) => {
@@ -109,4 +101,4 @@ const Define = () => {
   );
 };
 
-export default Define;
+export default withApollo(Define);

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Link from "next/link";
-import styles from "./Browse.module.css";
+import styles from "./Categories.module.css";
 import { Dropdown, DropdownContent, DropdownItem, DropdownMenu } from "../../Bulma/Dropdown";
 
-const Browse = () => {
-  const alphabet = [..."abcdefghijklmnopqrstuvwxyz"];
+const Categories = () => {
+  const categories = ["lorem", "ipsum", "dolor", "sit", "amet"];
   const [isActive, setIsActive] = useState(false);
 
   return (
@@ -13,25 +13,25 @@ const Browse = () => {
         className={styles.button}
         type="button"
         aria-haspopup="true"
-        aria-controls="alphabet-dropdown"
+        aria-controls="categorie-dropdown"
         onClick={() => setIsActive(!isActive)}
         onBlur={() => setIsActive(false)}
       >
-        Browse
+        Categories
       </button>
-      <DropdownMenu id="alphabet-dropdown">
+      <DropdownMenu id="categorie-dropdown">
         <DropdownContent>
           <DropdownItem>
-            <ul className={styles.alphabet}>
-              {alphabet.map((letter) => (
-                <li role="none" key={letter}>
-                  <Link href={`/popular/${encodeURIComponent(letter)}`}>
+            <ul className={styles.categories}>
+              {categories.map((categorie) => (
+                <li role="none" key={categorie}>
+                  <Link href={`/categorie/${encodeURIComponent(categorie)}`}>
                     <a
-                      href={`/popular/${encodeURIComponent(letter)}`}
-                      className={styles.letter}
+                      href={`/categorie/${encodeURIComponent(categorie)}`}
+                      className={styles.categorie}
                       role="menuitem"
                     >
-                      {letter}
+                      {categorie}
                     </a>
                   </Link>
                 </li>
@@ -44,4 +44,4 @@ const Browse = () => {
   );
 };
 
-export default Browse;
+export default Categories;

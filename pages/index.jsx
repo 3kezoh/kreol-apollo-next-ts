@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { withApollo } from "../apollo";
 import { DEFINITIONS } from "../graphql/definition/queries";
 import { Columns, Column, Section } from "../components/Bulma";
-import { Definition, Navbar, Layout, Sidebar } from "../components";
+import { Definition, Layout, Navbar, Sidebar } from "../components";
 
 const Home = () => {
   const [page, setPage] = useState(1);

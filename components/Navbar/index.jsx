@@ -8,6 +8,7 @@ import DefineButton from "../DefineButton";
 import Searchbar from "../Searchbar";
 import Logo from "../Logo";
 import Browse from "./Browse";
+import Categories from "./Categories";
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -23,7 +24,7 @@ const Navbar = () => {
                 <Logo />
                 <ul className={styles.list}>
                   <Browse />
-                  <li></li>
+                  <Categories />
                 </ul>
               </Flex>
             </Column>

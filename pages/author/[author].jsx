@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { gql, useLazyQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { withApollo } from "../../apollo";
+import { Definition, Layout, Navbar, Sidebar } from "../../components";
 import { Columns, Column, Section } from "../../components/Bulma";
-import { Definition, Navbar, Layout, Sidebar } from "../../components";
 
 const GET_DEFINITIONS_BY_AUTHOR = gql`
   query Definitions($author: ID!, $page: Int) {

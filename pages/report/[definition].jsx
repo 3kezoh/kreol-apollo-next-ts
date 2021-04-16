@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { Section } from "../../components/Bulma";
 import { Layout, ReportForm, ReportConfirmation } from "../../components";
 import { useAuth } from "../../components/Auth";
+import { Section } from "../../components/Bulma";
+import { handleGraphQLError } from "../../utils";
 
 const REPORT = gql`
   mutation Report($definition: ID!, $reason: Int!, $message: String) {
@@ -48,8 +49,8 @@ const GET_REPORT = gql`
 
 const Report = () => {
   const router = useRouter();
-  const { user } = useAuth();
   const { definition } = router.query;
+  const { user } = useAuth();
   const [reason, setReason] = useState(3);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState({});
@@ -63,17 +64,7 @@ const Report = () => {
 
   const [report] = useMutation(REPORT, {
     onCompleted: ({ report }) => setReported(report),
-    onError: ({ graphQLErrors }) => {
-      graphQLErrors.forEach(({ extensions }) => {
-        if (extensions.validationErrors) {
-          const errors = {};
-          extensions.validationErrors.forEach(({ field, message }) => {
-            errors[field] = message;
-          });
-          setErrors(errors);
-        }
-      });
-    },
+    onError: ({ graphQLErrors }) => handleGraphQLError({ graphQLErrors, setErrors }),
   });
 
   const onSubmit = async (event) => {

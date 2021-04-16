@@ -12,11 +12,11 @@ const Searchbar = () => {
   const [dropdownFocus, setDropdownFocus] = useState(false);
   const fetchPolicy = "cache-and-network";
   const onCompleted = ({ search }) => setDefinitions(search);
-  const [sendSearch] = useLazyQuery(SEARCH, { fetchPolicy, onCompleted });
+  const [loadSearch] = useLazyQuery(SEARCH, { fetchPolicy, onCompleted });
 
   useEffect(() => {
     if (search) {
-      sendSearch({ variables: { match: search } });
+      loadSearch({ variables: { match: search } });
     } else {
       setDefinitions([]);
     }
@@ -25,7 +25,7 @@ const Searchbar = () => {
   return (
     <div className={styles.searchbar}>
       <Input
-        placeholder="search"
+        placeholder="Start typing here..."
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}

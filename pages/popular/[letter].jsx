@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import Head from "next/head";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useRouter } from "next/router";
 import { gql, useLazyQuery } from "@apollo/client";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { withApollo } from "../../apollo";
+import { Definition, Layout, Navbar, Sidebar } from "../../components";
 import { Columns, Column, Section } from "../../components/Bulma";
-import { Layout, Navbar, Sidebar, Definition } from "../../components";
 
 const GET_DEFINITIONS_BY_LETTER = gql`
   query Definitions($letter: String!, $page: Int) {
@@ -27,7 +28,6 @@ const GET_DEFINITIONS_BY_LETTER = gql`
 const Popular = () => {
   const router = useRouter();
   const { letter } = router.query;
-
   const [page, setPage] = useState(1);
   const [definitions, setDefinitions] = useState([]);
   const [lastLetter, setLastLetter] = useState();
@@ -85,4 +85,4 @@ const Popular = () => {
   );
 };
 
-export default Popular;
+export default withApollo(Popular);
