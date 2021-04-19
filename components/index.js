@@ -7,6 +7,7 @@ export { default as Footer } from "./Footer";
 export { default as Form } from "./Form";
 export { default as Google } from "./Google";
 export { default as Layout } from "./Layout";
+export { default as Loader } from "./Loader";
 export { default as LogInButton } from "./LogInButton";
 export { default as Logo } from "./Logo";
 export { default as Navbar } from "./Navbar";

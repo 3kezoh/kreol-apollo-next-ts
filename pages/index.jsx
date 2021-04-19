@@ -5,15 +5,19 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { withApollo } from "../apollo";
 import { DEFINITIONS } from "../graphql/definition/queries";
 import { Columns, Column, Section } from "../components/Bulma";
-import { Definition, Layout, Navbar, Sidebar } from "../components";
+import { Definition, Layout, Loader, Navbar, Sidebar } from "../components";
 
 const Home = () => {
   const [page, setPage] = useState(1);
   const [definitions, setDefinitions] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
 
   useQuery(DEFINITIONS, {
     variables: { page },
-    onCompleted: (data) => setDefinitions([...definitions, ...data.definitions]),
+    onCompleted: (data) => {
+      if (data.definitions.length) return setDefinitions([...definitions, ...data.definitions]);
+      return setHasMore(false);
+    },
     fetchPolicy: "cache-and-network",
   });
 
@@ -37,8 +41,9 @@ const Home = () => {
               <InfiniteScroll
                 dataLength={definitions.length}
                 next={next}
-                hasMore
+                hasMore={hasMore}
                 scrollThreshold={0.9}
+                loader={<Loader />}
               >
                 {definitions.map((definition) => (
                   <Definition key={definition.id} data={definition} />

@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { useAuth } from "../Auth";
 import styles from "./Nav.module.css";
-import { Columns, Column, Container, Button, Flex } from "../Bulma";
-import LogInButton from "../LogInButton";
-import SignUpButton from "../SignUpButton";
+import { Columns, Column, Container, Flex } from "../Bulma";
 import DefineButton from "../DefineButton";
 import Searchbar from "../Searchbar";
 import Logo from "../Logo";
@@ -11,7 +9,7 @@ import Browse from "./Browse";
 import Categories from "./Categories";
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
 
   return (
     <header className={styles.header}>
@@ -37,20 +35,12 @@ const Navbar = () => {
               <Flex>
                 <Searchbar />
                 <DefineButton />
-                {user.isAuthenticated ? (
-                  <Flex>
-                    <Button onClick={logout}>Log out</Button>
-                    <Link href="/profile">
-                      <a href="/profile" className="button is-light">
-                        Profile
-                      </a>
-                    </Link>
-                  </Flex>
-                ) : (
-                  <Flex justifyContent="center">
-                    <SignUpButton />
-                    <LogInButton />
-                  </Flex>
+                {user.isAuthenticated && (
+                  <Link href="/profile">
+                    <a href="/profile" className="button is-light">
+                      Profile
+                    </a>
+                  </Link>
                 )}
               </Flex>
             </Column>

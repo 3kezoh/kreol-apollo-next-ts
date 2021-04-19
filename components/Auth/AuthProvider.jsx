@@ -25,8 +25,10 @@ const AuthProvider = (props) => {
   useEffect(() => {
     console.log("Checking localStorage");
     const token = localStorage.getItem("token");
-    const { sub: id, name } = jwt.decode(token);
-    if (token) setUser({ id, name, isAuthenticated: true });
+    if (token) {
+      const { sub: id, name } = jwt.decode(token);
+      setUser({ id, name, isAuthenticated: true });
+    }
   }, []);
 
   const withGoogle = async () => {
