@@ -5,9 +5,8 @@ const useIntersecting = (ref) => {
 
   const callback = ([entry]) => setIntersecting(entry.isIntersecting);
 
-  const observer = new IntersectionObserver(callback);
-
   useEffect(() => {
+    const observer = new IntersectionObserver(callback);
     observer.observe(ref.current);
     return () => {
       observer.disconnect();

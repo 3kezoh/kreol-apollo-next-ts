@@ -10,17 +10,19 @@ import { Columns, Column, Section } from "../../components/Bulma";
 const GET_DEFINITIONS_BY_LETTER = gql`
   query Definitions($letter: String!, $page: Int) {
     definitions(filter: { letter: $letter }, page: $page) {
-      id
-      word
-      meaning
-      example
-      score
-      language
-      author {
+      definitions {
         id
-        name
+        word
+        meaning
+        example
+        score
+        language
+        author {
+          id
+          name
+        }
+        createdAt
       }
-      createdAt
     }
   }
 `;
@@ -37,9 +39,9 @@ const Popular = () => {
     onCompleted: (data) => {
       setLastLetter(letter);
       if (letter !== lastLetter) {
-        setDefinitions([...data.definitions]);
+        setDefinitions([...data.definitions.definitions]);
       } else {
-        setDefinitions([...definitions, ...data.definitions]);
+        setDefinitions([...definitions, ...data.definitions.definitions]);
       }
     },
     fetchPolicy: "cache-and-network",

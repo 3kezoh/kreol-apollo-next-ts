@@ -10,13 +10,16 @@ import { Section, Columns, Column } from "../components/Bulma";
 const GET_DEFINITIONS = gql`
   query Definitions($author: ID!, $page: Int) {
     definitions(filter: { author: $author }, page: $page) {
-      id
-      word
-      meaning
-      example
-      score
-      language
-      createdAt
+      definitions {
+        id
+        word
+        meaning
+        example
+        score
+        language
+        createdAt
+      }
+      count
     }
   }
 `;
@@ -36,7 +39,7 @@ const Profile = () => {
 
   const [loadDefinitions] = useLazyQuery(GET_DEFINITIONS, {
     variables: { author: user.id, page },
-    onCompleted: (data) => setDefinitions([...definitions, ...data.definitions]),
+    onCompleted: (data) => setDefinitions([...definitions, ...data.definitions.definitions]),
     fetchPolicy: "cache-and-network",
   });
 
