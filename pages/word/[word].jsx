@@ -3,10 +3,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { DEFINITIONS } from "@graphql/definition/queries";
+import { Columns, Column, Section } from "@Bulma";
+import { Definition, Navbar, Layout, Sidebar } from "@components";
 import { withApollo } from "../../apollo";
-import { DEFINITIONS } from "../../graphql/definition/queries";
-import { Columns, Column, Section } from "../../components/Bulma";
-import { Definition, Navbar, Layout, Sidebar } from "../../components";
 
 const Word = () => {
   const router = useRouter();

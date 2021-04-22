@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const PaginationNext = ({ page, ...props }) => (
-  <Link href="/">
+  <Link href={{ pathname: "/", query: { page } }}>
     <a href="/" className="pagination-next" {...props}>
       Next
     </a>

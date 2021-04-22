@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { Button, Control, Input, Label, Section } from "../components/Bulma";
-import { Form, Google, Layout } from "../components";
-import { useAuth } from "../components/Auth";
+import { useAuth } from "@Auth";
+import { Button, Control, Input, Label, Section } from "@Bulma";
+import { Form, Google, Layout } from "@components";
 
 const Login = () => {
   const router = useRouter();

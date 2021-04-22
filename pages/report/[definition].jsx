@@ -2,9 +2,9 @@ import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
-import { Layout, ReportForm, ReportConfirmation } from "../../components";
-import { useAuth } from "../../components/Auth";
-import { Section } from "../../components/Bulma";
+import { useAuth } from "@Auth";
+import { Section } from "@Bulma";
+import { Layout, ReportForm, ReportConfirmation } from "@components";
 import { handleGraphQLError } from "../../utils";
 
 const REPORT = gql`

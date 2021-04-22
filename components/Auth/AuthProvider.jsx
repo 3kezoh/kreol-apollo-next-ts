@@ -19,7 +19,6 @@ const AuthProvider = (props) => {
       localStorage.setItem("token", token);
       setUser({ isAuthenticated: true });
     }
-    Cookie.remove("token");
   }, []);
 
   useEffect(() => {
@@ -38,12 +37,14 @@ const AuthProvider = (props) => {
   const onLogin = ({ login: { token, user } }) => {
     setUser({ ...user, isAuthenticated: true });
     localStorage.setItem("token", token);
+    Cookie.set("token", token);
     router.push("/");
   };
 
   const onSignup = ({ signup: { token, user } }) => {
     setUser({ ...user, isAuthenticated: true });
     localStorage.setItem("token", token);
+    Cookie.set("token", token);
     router.push("/");
   };
 

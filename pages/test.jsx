@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
-import { API } from "../services";
+import { fetch } from "../lib/api";
 import { withApollo } from "../apollo";
 import { Columns, Column, Section } from "../components/Bulma";
 import { Definition, Layout, Navbar, Sidebar } from "../components";
@@ -27,20 +27,18 @@ export const getServerSideProps = async ({ query: _query }) => {
     let { page } = _query;
     page = parseInt(page, 10);
     const variables = { page };
-    const { data } = await API({ data: { query, variables } });
-    const {
-      data: { definitions },
-    } = data;
+    const { data } = await fetch({ query, variables });
+    const { definitions } = data;
     return {
       props: { definitions },
     };
-  } catch (error) {
-    console.error(error.response.data.errors);
+  } catch ({ response }) {
+    console.error(response);
     return { props: { definitions: [] } };
   }
 };
 
-const Text = ({ definitions }) => (
+const Test = ({ definitions }) => (
   <>
     <Head>
       <title>Kreol</title>
@@ -69,4 +67,4 @@ const Text = ({ definitions }) => (
   </>
 );
 
-export default withApollo(Text);
+export default withApollo(Test);

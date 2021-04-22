@@ -42,14 +42,14 @@ function paginate(current, length, delta = 4) {
   return pages;
 }
 
-const Pagination = ({ page: currentPage, nextPage, prevPage, setPage, count }) => {
+const Pagination = ({ page: currentPage, count }) => {
   const lastPage = Math.floor(count / 5);
   const pages = paginate(currentPage, lastPage);
 
   return (
     <BulmaPagination isCentered>
-      {currentPage !== 1 && <PaginationPrevious onClick={prevPage} />}
-      {currentPage !== lastPage && <PaginationNext onClick={nextPage} />}
+      {currentPage !== 1 && <PaginationPrevious page={currentPage - 1} />}
+      {currentPage !== lastPage && <PaginationNext page={currentPage + 1} />}
       <PaginationList>
         {pages.map((page) =>
           page > 0 ? (
@@ -57,7 +57,6 @@ const Pagination = ({ page: currentPage, nextPage, prevPage, setPage, count }) =
               key={page}
               ariaLabel={`Goto page ${page}`}
               page={page}
-              onClick={() => setPage(page)}
               isCurrent={page === currentPage}
             />
           ) : (

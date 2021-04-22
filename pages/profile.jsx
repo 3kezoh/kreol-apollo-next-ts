@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import Head from "next/head";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useAuth } from "../components/Auth";
+import { useAuth } from "@Auth";
+import { Section, Columns, Column } from "@Bulma";
+import { EditableDefinition, Layout, Navbar, UserSettings } from "@components";
 import { withApollo } from "../apollo";
-import { EditableDefinition, Layout, Navbar, UserSettings } from "../components";
-import { Section, Columns, Column } from "../components/Bulma";
 
 const GET_DEFINITIONS = gql`
   query Definitions($author: ID!, $page: Int) {

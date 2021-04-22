@@ -2,10 +2,10 @@ import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
+import { useAuth } from "@Auth";
+import { Button, Control, Input, Label, Section, Select, Textarea } from "@Bulma";
+import { Form, Layout } from "@components";
 import { withApollo } from "../apollo";
-import { Form, Layout } from "../components";
-import { useAuth } from "../components/Auth";
-import { Button, Control, Input, Label, Section, Select, Textarea } from "../components/Bulma";
 import { handleGraphQLError } from "../utils";
 
 const CREATE_DEFINITION = gql`

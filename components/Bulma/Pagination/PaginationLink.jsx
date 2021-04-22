@@ -8,7 +8,7 @@ const PaginationLink = ({ children, page, isCurrent, ariaLabel, ariaCurrent, ...
 
   return (
     <li>
-      <Link href="/">
+      <Link href={{ pathname: "/", query: { page } }}>
         <a
           href="/"
           className={className}
