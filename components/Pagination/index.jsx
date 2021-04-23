@@ -1,11 +1,11 @@
 import {
-  Pagination as BulmaPagination,
+  Pagination,
   PaginationEllipsis,
   PaginationLink,
   PaginationList,
   PaginationNext,
   PaginationPrevious,
-} from "../Bulma/Pagination";
+} from "@Bulma/Pagination";
 
 function getRange(start, end) {
   return Array(end - start + 1)
@@ -42,30 +42,37 @@ function paginate(current, length, delta = 4) {
   return pages;
 }
 
-const Pagination = ({ page: currentPage, count }) => {
-  const lastPage = Math.floor(count / 5);
-  const pages = paginate(currentPage, lastPage);
+const Pager = ({ page, pages, pathname }) => {
+  const _pages = paginate(page, pages);
+  const prevPage = page - 1;
+  const nextPage = page + 1;
 
   return (
-    <BulmaPagination isCentered>
-      {currentPage !== 1 && <PaginationPrevious page={currentPage - 1} />}
-      {currentPage !== lastPage && <PaginationNext page={currentPage + 1} />}
+    <Pagination isCentered>
+      {page !== 1 && (
+        <PaginationPrevious page={prevPage} pathname={pathname} title={`Go to page ${prevPage}`} />
+      )}
+      {page !== pages && (
+        <PaginationNext page={nextPage} pathname={pathname} title={`Go to page ${nextPage}`} />
+      )}
       <PaginationList>
-        {pages.map((page) =>
-          page > 0 ? (
+        {_pages.map((_page) =>
+          _page > 0 ? (
             <PaginationLink
-              key={page}
-              ariaLabel={`Goto page ${page}`}
-              page={page}
-              isCurrent={page === currentPage}
+              key={_page}
+              aria-label={`Goto page ${_page}`}
+              isCurrent={page === _page}
+              page={_page}
+              pathname={pathname}
+              title={`Go to page ${_page}`}
             />
           ) : (
-            <PaginationEllipsis key={page} />
+            <PaginationEllipsis key={_page} />
           )
         )}
       </PaginationList>
-    </BulmaPagination>
+    </Pagination>
   );
 };
 
-export default Pagination;
+export default Pager;

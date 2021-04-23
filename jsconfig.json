@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "*": ["*"],
       "@components": ["./components/index.js"],
       "@components/*": ["./components/*"],
       "@Bulma": ["./components/Bulma/index.js"],
@@ -11,7 +12,9 @@
       "@hooks": ["./hooks/index.js"],
       "@hooks/*": ["./hooks/*"],
       "@graphql": ["./graphql/index.js"],
-      "@graphql/*": ["./graphql/*"]
+      "@graphql/*": ["./graphql/*"],
+      "@lib": ["./lib/index.js"],
+      "@lib/*": ["./lib/*"]
     }
   },
   "exclude": ["node_modules", ".next"]

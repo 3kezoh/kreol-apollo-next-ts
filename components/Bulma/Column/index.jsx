@@ -5,9 +5,9 @@ const Column = ({ m, p, isOneFifth, isTwoThirds, isFourFifths, isHiddenMobile, c
     "is-hidden-mobile": isHiddenMobile,
   };
 
-  if (m) classes[`m-${m}`] = true;
+  if (m >= 0) classes[`m-${m}`] = true;
 
-  if (p) classes[`p-${p}`] = true;
+  if (p >= 0) classes[`p-${p}`] = true;
 
   if (isOneFifth)
     classes[`is-one-fifth${typeof isOneFifth === "string" ? `-${isOneFifth}` : ""}`] = true;
