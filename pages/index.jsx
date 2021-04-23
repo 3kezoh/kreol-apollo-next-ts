@@ -64,7 +64,7 @@ const Home = ({ definitions, pages, page }) => (
             {definitions.map((definition) => (
               <Definition key={definition.id} data={definition} />
             ))}
-            {pages > 1 && <Pagination page={page} pages={pages} pathname="/" />}
+            {pages > 1 && <Pagination page={page} pages={pages} pathname="/" query={{ page }} />}
           </Section>
         </Column>
       </Columns>

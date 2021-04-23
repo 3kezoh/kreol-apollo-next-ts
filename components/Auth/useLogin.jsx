@@ -1,5 +1,5 @@
-const { useMutation } = require("@apollo/client");
-const { LOGIN } = require("../../graphql/auth/mutations");
+import { useMutation } from "@apollo/client";
+import { LOGIN } from "@graphql/auth/mutations";
 
 const useLogin = (onCompleted, onError) => useMutation(LOGIN, { onCompleted, onError });
 

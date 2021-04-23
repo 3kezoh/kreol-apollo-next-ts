@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { gql, useLazyQuery } from "@apollo/client";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
-import { Definition, Layout, Navbar, Sidebar } from "@components";
+import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
+import { fetch } from "@lib/api";
 import { withApollo } from "../../apollo";
+
+const DEFINITIONS_PER_PAGES = 5;
 
 const GET_DEFINITIONS_BY_AUTHOR = gql`
   query Definitions($author: ID!, $page: Int) {
@@ -25,26 +26,32 @@ const GET_DEFINITIONS_BY_AUTHOR = gql`
   }
 `;
 
-const Author = () => {
-  const router = useRouter();
-  const { id: author } = router.query;
-  const [page, setPage] = useState(1);
-  const [definitions, setDefinitions] = useState([]);
+const GET_COUNT_BY_AUTHOR = gql`
+  query Count($author: ID!) {
+    count(filter: { author: $author })
+  }
+`;
 
-  const [loadDefinitions] = useLazyQuery(GET_DEFINITIONS_BY_AUTHOR, {
-    variables: { author, page },
-    onCompleted: (data) => setDefinitions([...definitions, ...data.definitions]),
-    fetchPolicy: "cache-and-network",
+const getServerSideProps = async ({ query }) => {
+  const { id: author } = query;
+  let { page = 1 } = query;
+  page = parseInt(page, 10);
+  const {
+    data: { definitions },
+  } = await fetch({
+    query: GET_DEFINITIONS_BY_AUTHOR,
+    variables: { author, page, limit: DEFINITIONS_PER_PAGES },
   });
+  const {
+    data: { count },
+  } = await fetch({ query: GET_COUNT_BY_AUTHOR, variables: { author } });
+  const pages = Math.ceil(count / DEFINITIONS_PER_PAGES);
+  return { props: { definitions, author, page, pages } };
+};
 
-  useEffect(() => {
-    if (author) loadDefinitions();
-  }, [author, page]);
-
-  const next = () => {
-    setPage(page + 1);
-  };
-
+const Author = ({ definitions, page, pages }) => {
+  const router = useRouter();
+  const { author, id } = router.query;
   return (
     <>
       <Head>
@@ -58,16 +65,15 @@ const Author = () => {
           </Column>
           <Column isTwoThirds="desktop" isFourFifths="tablet">
             <Section>
-              <InfiniteScroll
-                dataLength={definitions.length}
-                next={next}
-                hasMore={definitions.length !== 0}
-                scrollThreshold={0.9}
-              >
-                {definitions.map((data) => (
-                  <Definition key={data.id} data={data} />
-                ))}
-              </InfiniteScroll>
+              {definitions.map((data) => (
+                <Definition key={data.id} data={data} />
+              ))}
+              <Pagination
+                page={page}
+                pages={pages}
+                pathname={`/author/${author}`}
+                query={{ page, id }}
+              />
             </Section>
           </Column>
         </Columns>
@@ -77,3 +83,4 @@ const Author = () => {
 };
 
 export default withApollo(Author);
+export { getServerSideProps };

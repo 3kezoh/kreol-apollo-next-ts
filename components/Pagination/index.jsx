@@ -42,7 +42,7 @@ function paginate(current, length, delta = 4) {
   return pages;
 }
 
-const Pager = ({ page, pages, pathname }) => {
+const Pager = ({ page, pages, pathname, query }) => {
   const _pages = paginate(page, pages);
   const prevPage = page - 1;
   const nextPage = page + 1;
@@ -50,10 +50,20 @@ const Pager = ({ page, pages, pathname }) => {
   return (
     <Pagination isCentered>
       {page !== 1 && (
-        <PaginationPrevious page={prevPage} pathname={pathname} title={`Go to page ${prevPage}`} />
+        <PaginationPrevious
+          page={prevPage}
+          pathname={pathname}
+          query={{ ...query, page: prevPage }}
+          title={`Go to page ${prevPage}`}
+        />
       )}
       {page !== pages && (
-        <PaginationNext page={nextPage} pathname={pathname} title={`Go to page ${nextPage}`} />
+        <PaginationNext
+          page={nextPage}
+          pathname={pathname}
+          query={{ ...query, page: nextPage }}
+          title={`Go to page ${nextPage}`}
+        />
       )}
       <PaginationList>
         {_pages.map((_page) =>
@@ -64,6 +74,7 @@ const Pager = ({ page, pages, pathname }) => {
               isCurrent={page === _page}
               page={_page}
               pathname={pathname}
+              query={{ ...query, page: _page }}
               title={`Go to page ${_page}`}
             />
           ) : (
