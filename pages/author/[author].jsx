@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { useRouter } from "next/router";
 import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
@@ -33,54 +32,50 @@ const GET_COUNT_BY_AUTHOR = gql`
 `;
 
 const getServerSideProps = async ({ query }) => {
-  const { id: author } = query;
+  const { author, id } = query;
   let { page = 1 } = query;
   page = parseInt(page, 10);
   const {
     data: { definitions },
   } = await fetch({
     query: GET_DEFINITIONS_BY_AUTHOR,
-    variables: { author, page, limit: DEFINITIONS_PER_PAGES },
+    variables: { author: id, page, limit: DEFINITIONS_PER_PAGES },
   });
   const {
     data: { count },
-  } = await fetch({ query: GET_COUNT_BY_AUTHOR, variables: { author } });
+  } = await fetch({ query: GET_COUNT_BY_AUTHOR, variables: { author: id } });
   const pages = Math.ceil(count / DEFINITIONS_PER_PAGES);
-  return { props: { definitions, author, page, pages } };
+  return { props: { definitions, author, id, page, pages } };
 };
 
-const Author = ({ definitions, page, pages }) => {
-  const router = useRouter();
-  const { author, id } = router.query;
-  return (
-    <>
-      <Head>
-        <title>User Profile</title>
-      </Head>
-      <Navbar />
-      <Layout>
-        <Columns>
-          <Column isOneFifth isHiddenMobile>
-            <Sidebar />
-          </Column>
-          <Column isTwoThirds="desktop" isFourFifths="tablet">
-            <Section>
-              {definitions.map((data) => (
-                <Definition key={data.id} data={data} />
-              ))}
+const Author = ({ definitions, page, pages, author, id }) => (
+  <>
+    <Head>
+      <title>User Profile</title>
+    </Head>
+    <Navbar />
+    <Layout>
+      <Columns>
+        <Column isOneFifth isHiddenMobile>
+          <Sidebar />
+        </Column>
+        <Column isTwoThirds="desktop" isFourFifths="tablet">
+          <Section>
+            {definitions && definitions.map((data) => <Definition key={data.id} data={data} />)}
+            {pages > 1 && (
               <Pagination
                 page={page}
                 pages={pages}
                 pathname={`/author/${author}`}
                 query={{ page, id }}
               />
-            </Section>
-          </Column>
-        </Columns>
-      </Layout>
-    </>
-  );
-};
+            )}
+          </Section>
+        </Column>
+      </Columns>
+    </Layout>
+  </>
+);
 
 export default withApollo(Author);
 export { getServerSideProps };
