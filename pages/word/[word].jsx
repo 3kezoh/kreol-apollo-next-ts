@@ -8,8 +8,8 @@ import { withApollo } from "../../apollo";
 const DEFINITIONS_PER_PAGES = 5;
 
 const GET_DEFINITIONS_PER_WORD = gql`
-  query Definitions($word: String!, $page: Int) {
-    definitions(filter: { word: $word }, page: $page) {
+  query Definitions($word: String!, $page: Int, $limit: Int) {
+    definitions(filter: { word: $word }, page: $page, limit: $limit) {
       id
       word
       meaning

@@ -9,8 +9,8 @@ import { withApollo } from "../../apollo";
 const DEFINITIONS_PER_PAGES = 50;
 
 const GET_POPULAR = gql`
-  query Popular($letter: String!) {
-    popular(letter: $letter) {
+  query Popular($letter: String!, $limit: Int) {
+    popular(letter: $letter, limit: $limit) {
       id
       word
       meaning
