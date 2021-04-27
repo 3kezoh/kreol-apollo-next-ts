@@ -30,8 +30,8 @@
           ["@Bulma", "./components/Bulma"],
           ["@Auth", "./components/Auth"],
           ["@hooks", "./hooks"],
-          ["@graphql", "./graphql"],
-          ["@lib", "./lib"]
+          ["@lib", "./lib"],
+          ["@apollo", "./apollo"]
         ],
         "extensions": [".js", ".jsx"]
       }

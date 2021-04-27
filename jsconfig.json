@@ -11,10 +11,10 @@
       "@Auth/*": ["./components/Auth/*"],
       "@hooks": ["./hooks/index.js"],
       "@hooks/*": ["./hooks/*"],
-      "@graphql": ["./graphql/index.js"],
-      "@graphql/*": ["./graphql/*"],
       "@lib": ["./lib/index.js"],
-      "@lib/*": ["./lib/*"]
+      "@lib/*": ["./lib/*"],
+      "@apollo": ["./apollo/index.js"],
+      "@apollo/*": ["./apollo/*"]
     }
   },
   "exclude": ["node_modules", ".next"]

@@ -1,8 +1,8 @@
 import Head from "next/head";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
-import { apolloClient } from "@graphql/apollo";
-import { GET_DEFINITIONS, GET_COUNT } from "@graphql/definition/queries";
+import { apolloClient } from "@apollo";
+import { GET_DEFINITIONS, GET_COUNT } from "@apollo/definition/queries";
 
 const DEFINITIONS_PER_PAGES = 5;
 
