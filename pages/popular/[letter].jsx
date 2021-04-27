@@ -17,15 +17,21 @@ const GET_POPULAR = gql`
   }
 `;
 
-const getServerSideProps = async ({ query }) => {
-  const { letter } = query;
+const getStaticProps = async ({ params }) => {
+  const { letter } = params;
   const {
     data: { popular: definitions },
   } = await apolloClient.query({
     query: GET_POPULAR,
     variables: { letter, limit: DEFINITIONS_PER_PAGES },
   });
-  return { props: { definitions, letter } };
+  return { props: { definitions, letter }, revalidate: 60 * 60 };
+};
+
+const getStaticPaths = async () => {
+  const alphabet = [..."abcdefghijklmnopqrstuvwxyz"];
+  const paths = alphabet.map((letter) => ({ params: { letter } }));
+  return { paths, fallback: false };
 };
 
 const Popular = ({ definitions }) => (
@@ -58,4 +64,4 @@ const Popular = ({ definitions }) => (
 );
 
 export default Popular;
-export { getServerSideProps };
+export { getStaticProps, getStaticPaths };
