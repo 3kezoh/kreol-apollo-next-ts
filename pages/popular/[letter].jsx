@@ -3,7 +3,7 @@ import Link from "next/link";
 import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
 import { Layout, Navbar, Sidebar } from "@components";
-import { fetch } from "@lib/api";
+import apolloClient from "@lib/apollo/client";
 
 const DEFINITIONS_PER_PAGES = 50;
 
@@ -21,7 +21,7 @@ const getServerSideProps = async ({ query }) => {
   const { letter } = query;
   const {
     data: { popular: definitions },
-  } = await fetch({
+  } = await apolloClient.query({
     query: GET_POPULAR,
     variables: { letter, limit: DEFINITIONS_PER_PAGES },
   });

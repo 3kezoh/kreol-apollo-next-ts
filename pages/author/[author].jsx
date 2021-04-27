@@ -2,7 +2,7 @@ import Head from "next/head";
 import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
-import { fetch } from "@lib/api";
+import apolloClient from "@lib/apollo/client";
 
 const DEFINITIONS_PER_PAGES = 5;
 
@@ -36,13 +36,13 @@ const getServerSideProps = async ({ query }) => {
   page = parseInt(page, 10);
   const {
     data: { definitions },
-  } = await fetch({
+  } = await apolloClient.query({
     query: GET_DEFINITIONS_BY_AUTHOR,
     variables: { author: id, page, limit: DEFINITIONS_PER_PAGES },
   });
   const {
     data: { count },
-  } = await fetch({ query: GET_COUNT_BY_AUTHOR, variables: { author: id } });
+  } = await apolloClient.query({ query: GET_COUNT_BY_AUTHOR, variables: { author: id } });
   const pages = Math.ceil(count / DEFINITIONS_PER_PAGES);
   return { props: { definitions, author, id, page, pages } };
 };
