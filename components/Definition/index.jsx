@@ -20,14 +20,6 @@ const GET_SCORE = gql`
   }
 `;
 
-const VOTE_QUERY = gql`
-  query Vote($id: ID!) {
-    vote(definition: $id) {
-      action
-    }
-  }
-`;
-
 const VOTE_MUTATION = gql`
   mutation Vote($id: ID!, $action: Int!) {
     vote(definition: $id, action: $action) {
@@ -40,31 +32,23 @@ const VOTE_MUTATION = gql`
 `;
 
 const Definition = ({
-  data: { id, word, meaning, example, author, score: _score, language, createdAt },
+  data: { id, word, meaning, example, author, score: _score, language, createdAt, action: _action },
 }) => {
   const ref = useRef();
   const isIntersecting = useIntersecting(ref);
   const [score, setScore] = useState(_score);
-  const [action, setAction] = useState(0);
+  const [action, setAction] = useState(_action);
   const { user } = useAuth();
   const router = useRouter();
   const date = format(new Date(createdAt), DATE_FORMAT, { locale });
 
-  const { startPolling, stopPolling } = useQuery(GET_SCORE, {
-    variables: { id },
-    onCompleted: ({ definition }) => {
-      if (definition) setScore(definition.score ?? _score);
-    },
-    fetchPolicy: "cache-and-network",
-  });
-
-  useQuery(VOTE_QUERY, {
-    variables: { id },
-    onCompleted: ({ vote }) => {
-      if (vote) setAction(vote.action ?? 0);
-    },
-    fetchPolicy: "cache-and-network",
-  });
+  // const { startPolling, stopPolling } = useQuery(GET_SCORE, {
+  //   variables: { id },
+  //   onCompleted: ({ definition }) => {
+  //     if (definition) setScore(definition.score ?? _score);
+  //   },
+  //   fetchPolicy: "cache-and-network",
+  // });
 
   const [vote] = useMutation(VOTE_MUTATION, {
     onCompleted: ({ vote }) => {
@@ -75,13 +59,13 @@ const Definition = ({
     },
   });
 
-  useEffect(() => {
-    stopPolling();
-    if (isIntersecting) startPolling(POLL_INTERVAL);
-    return () => {
-      stopPolling();
-    };
-  }, [isIntersecting]);
+  // useEffect(() => {
+  //   stopPolling();
+  //   if (isIntersecting) startPolling(POLL_INTERVAL);
+  //   return () => {
+  //     stopPolling();
+  //   };
+  // }, [isIntersecting]);
 
   const _vote = (action) => {
     if (!user.isAuthenticated) return router.push("/signup");

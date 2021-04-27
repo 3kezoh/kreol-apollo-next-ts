@@ -3,7 +3,6 @@ import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Navbar, Layout, Pagination, Sidebar } from "@components";
 import { fetch } from "@lib/api";
-import { withApollo } from "../../apollo";
 
 const DEFINITIONS_PER_PAGES = 5;
 
@@ -75,5 +74,5 @@ const Word = ({ definitions, page, pages, word }) => (
   </>
 );
 
-export default withApollo(Word);
+export default Word;
 export { getServerSideProps };

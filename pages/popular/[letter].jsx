@@ -4,7 +4,6 @@ import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
 import { Layout, Navbar, Sidebar } from "@components";
 import { fetch } from "@lib/api";
-import { withApollo } from "../../apollo";
 
 const DEFINITIONS_PER_PAGES = 50;
 
@@ -58,5 +57,5 @@ const Popular = ({ definitions }) => (
   </>
 );
 
-export default withApollo(Popular);
+export default Popular;
 export { getServerSideProps };

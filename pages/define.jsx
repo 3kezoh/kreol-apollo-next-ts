@@ -5,7 +5,6 @@ import { gql, useMutation } from "@apollo/client";
 import { useAuth } from "@Auth";
 import { Button, Control, Input, Label, Section, Select, Textarea } from "@Bulma";
 import { Form, Layout } from "@components";
-import { withApollo } from "../apollo";
 import { handleGraphQLError } from "../utils";
 
 const CREATE_DEFINITION = gql`
@@ -101,4 +100,4 @@ const Define = () => {
   );
 };
 
-export default withApollo(Define);
+export default Define;

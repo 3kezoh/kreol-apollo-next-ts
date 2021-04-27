@@ -2,8 +2,7 @@ import Head from "next/head";
 import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
-import { initializeApollo } from "@lib/apollo/client";
-import withApollo from "next-with-apollo";
+import apolloClient from "@lib/apollo/client";
 
 const DEFINITIONS_PER_PAGES = 5;
 
@@ -34,7 +33,6 @@ const GET_COUNT = gql`
 `;
 
 const getServerSideProps = async ({ query, req }) => {
-  const apolloClient = initializeApollo();
   const {
     cookies: { token },
   } = req;
@@ -84,5 +82,5 @@ const Home = ({ definitions, pages, page }) => (
   </>
 );
 
-export default withApollo(Home);
+export default Home;
 export { getServerSideProps };

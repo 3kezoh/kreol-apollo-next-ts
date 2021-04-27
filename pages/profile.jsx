@@ -5,7 +5,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useAuth } from "@Auth";
 import { Section, Columns, Column } from "@Bulma";
 import { EditableDefinition, Layout, Navbar, UserSettings } from "@components";
-import { withApollo } from "../apollo";
 
 const GET_DEFINITIONS = gql`
   query Definitions($author: ID!, $page: Int) {
@@ -90,4 +89,4 @@ const Profile = () => {
   );
 };
 
-export default withApollo(Profile);
+export default Profile;
