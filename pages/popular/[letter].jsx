@@ -3,7 +3,7 @@ import Link from "next/link";
 import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
 import { Layout, Navbar, Sidebar } from "@components";
-import apolloClient from "@lib/apollo/client";
+import { apolloClient } from "@graphql/apollo";
 
 const DEFINITIONS_PER_PAGES = 50;
 

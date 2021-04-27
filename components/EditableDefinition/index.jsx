@@ -13,7 +13,7 @@ const DATE_FORMAT = "d MMMM yyyy";
 const POLL_INTERVAL = 1000000_10_000;
 
 const GET_SCORE = gql`
-  query Definition($id: ID!) {
+  query GetScoreD($id: ID!) {
     definition(id: $id) {
       score
     }
@@ -21,7 +21,7 @@ const GET_SCORE = gql`
 `;
 
 const VOTE_QUERY = gql`
-  query Vote($id: ID!) {
+  query VoteQuery($id: ID!) {
     vote(definition: $id) {
       action
     }
@@ -29,7 +29,7 @@ const VOTE_QUERY = gql`
 `;
 
 const VOTE_MUTATION = gql`
-  mutation Vote($id: ID!, $action: Int!) {
+  mutation VoteEditableDefinition($id: ID!, $action: Int!) {
     vote(definition: $id, action: $action) {
       definition {
         score

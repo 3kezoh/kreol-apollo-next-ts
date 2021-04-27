@@ -7,18 +7,16 @@ import { Section, Columns, Column } from "@Bulma";
 import { EditableDefinition, Layout, Navbar, UserSettings } from "@components";
 
 const GET_DEFINITIONS = gql`
-  query Definitions($author: ID!, $page: Int) {
+  query GetDefinitionsProfile($author: ID!, $page: Int) {
     definitions(filter: { author: $author }, page: $page) {
-      definitions {
-        id
-        word
-        meaning
-        example
-        score
-        language
-        createdAt
-      }
-      count
+      id
+      word
+      meaning
+      example
+      score
+      language
+      createdAt
+      action
     }
   }
 `;
@@ -38,7 +36,7 @@ const Profile = () => {
 
   const [loadDefinitions] = useLazyQuery(GET_DEFINITIONS, {
     variables: { author: user.id, page },
-    onCompleted: (data) => setDefinitions([...definitions, ...data.definitions.definitions]),
+    onCompleted: (data) => setDefinitions([...definitions, ...data.definitions]),
     fetchPolicy: "cache-and-network",
   });
 

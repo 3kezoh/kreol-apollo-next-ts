@@ -8,7 +8,7 @@ import { Layout, ReportForm, ReportConfirmation } from "@components";
 import { handleGraphQLError } from "../../utils";
 
 const REPORT = gql`
-  mutation Report($definition: ID!, $reason: Int!, $message: String) {
+  mutation ReportMutation($definition: ID!, $reason: Int!, $message: String) {
     report(definition: $definition, reason: $reason, message: $message) {
       definition {
         id

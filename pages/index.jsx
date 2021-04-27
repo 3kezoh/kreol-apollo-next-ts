@@ -1,36 +1,10 @@
 import Head from "next/head";
-import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
-import apolloClient from "@lib/apollo/client";
+import { apolloClient } from "@graphql/apollo";
+import { GET_DEFINITIONS, GET_COUNT } from "@graphql/definition/queries";
 
 const DEFINITIONS_PER_PAGES = 5;
-
-const GET_DEFINITIONS_BY_PAGE = gql`
-  query Definitions($page: Int, $limit: Int) {
-    definitions(page: $page, limit: $limit) {
-      id
-      word
-      meaning
-      example
-      score
-      language
-      author {
-        id
-        email
-        name
-      }
-      createdAt
-      action
-    }
-  }
-`;
-
-const GET_COUNT = gql`
-  query {
-    count
-  }
-`;
 
 const getServerSideProps = async ({ query, req }) => {
   const {
@@ -42,7 +16,7 @@ const getServerSideProps = async ({ query, req }) => {
   const {
     data: { definitions },
   } = await apolloClient.query({
-    query: GET_DEFINITIONS_BY_PAGE,
+    query: GET_DEFINITIONS,
     variables: { page, limit: DEFINITIONS_PER_PAGES },
     context: { headers: { Authorization: `Bearer ${token}` } },
     fetchPolicy: "network-only",
