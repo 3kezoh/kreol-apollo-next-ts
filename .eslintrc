@@ -31,7 +31,8 @@
           ["@Auth", "./components/Auth"],
           ["@hooks", "./hooks"],
           ["@graphql", "./graphql"],
-          ["@lib", "./lib"]
+          ["@lib", "./lib"],
+          ["@framework", "./framework"]
         ],
         "extensions": [".js", ".jsx"]
       }

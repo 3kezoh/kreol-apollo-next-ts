@@ -1,34 +1,18 @@
 import Head from "next/head";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
-import { apolloClient } from "@lib";
-import { GET_DEFINITIONS, GET_COUNT } from "@graphql/definition/queries";
+import { getAllDefinitions, getCount } from "@framework/definition";
 
 const DEFINITIONS_PER_PAGES = 5;
 
 const getServerSideProps = async ({ query, req }) => {
-  const {
-    cookies: { token },
-  } = req;
-  let { page = 1 } = query;
-  page = parseInt(page, 10);
-
-  const {
-    data: { definitions },
-  } = await apolloClient.query({
-    query: GET_DEFINITIONS,
-    variables: { page, limit: DEFINITIONS_PER_PAGES },
-    context: { headers: { Authorization: `Bearer ${token}` } },
-    fetchPolicy: "network-only",
-  });
-
-  const {
-    data: { count },
-  } = await apolloClient.query({ query: GET_COUNT });
-
+  const { cookies } = req;
+  const { token } = cookies;
+  const { page = 1 } = query;
+  const definitions = await getAllDefinitions({ page, token });
+  const count = await getCount();
   const pages = Math.ceil(count / DEFINITIONS_PER_PAGES);
-
-  return { props: { definitions, page, pages } };
+  return { props: { definitions, page: +page, pages } };
 };
 
 const Home = ({ definitions, pages, page }) => (

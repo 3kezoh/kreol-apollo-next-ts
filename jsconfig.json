@@ -14,7 +14,9 @@
       "@graphql": ["graphql/index.js"],
       "@graphql/*": ["graphql/*"],
       "@lib": ["./lib/index.js"],
-      "@lib/*": ["./lib/*"]
+      "@lib/*": ["./lib/*"],
+      "@framework": ["./framework/index.js"],
+      "@framework/*": ["./framework/*"]
     }
   },
   "exclude": ["node_modules", ".next"]
