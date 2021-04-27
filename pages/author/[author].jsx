@@ -2,7 +2,7 @@ import Head from "next/head";
 import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
-import { apolloClient } from "@apollo";
+import { apolloClient } from "@lib";
 
 const DEFINITIONS_PER_PAGES = 5;
 

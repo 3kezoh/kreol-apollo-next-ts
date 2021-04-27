@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { AUTHOR_FIELDS } from "@apollo/author/fragments";
+import { AUTHOR_FIELDS } from "@graphql/author/fragments";
 
 const DEFINITION_FIELDS = gql`
   ${AUTHOR_FIELDS}

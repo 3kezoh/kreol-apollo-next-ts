@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { ME } from "@apollo/auth/queries";
+import { ME } from "@graphql/auth/queries";
 
 const Me = () => {
   const { loading, error, data } = useQuery(ME);

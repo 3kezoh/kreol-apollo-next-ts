@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useLazyQuery } from "@apollo/client";
+import { SEARCH } from "@graphql/definition/queries";
 import { Input } from "../Bulma";
 import styles from "./Searchbar.module.css";
-import { SEARCH } from "@apollo/definition/queries";
 
 const Searchbar = () => {
   const [search, setSearch] = useState("");

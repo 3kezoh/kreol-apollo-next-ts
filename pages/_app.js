@@ -2,7 +2,7 @@ import "bulma/css/bulma.css";
 import "../styles/globals.css";
 import "../styles/colors.css";
 import { ApolloProvider } from "@apollo/client";
-import { apolloClient } from "@apollo";
+import { apolloClient } from "@lib";
 import { AuthProvider } from "@Auth";
 
 const App = ({ Component, pageProps }) => (
