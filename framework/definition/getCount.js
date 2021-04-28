@@ -1,10 +1,10 @@
 import { apolloClient } from "@lib";
 import { GET_COUNT } from "@graphql/definition/queries";
 
-const getAllDefinitions = async ({ variables } = {}) => {
+const getAllDefinitions = async ({ author, word, letter } = {}) => {
   const { data } = await apolloClient.query({
     query: GET_COUNT,
-    variables,
+    variables: { author, word, letter },
   });
   const { count } = data;
   return count;

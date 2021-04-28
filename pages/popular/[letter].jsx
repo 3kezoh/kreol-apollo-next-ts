@@ -1,31 +1,15 @@
 import Head from "next/head";
 import Link from "next/link";
-import { gql } from "@apollo/client";
 import { Columns, Column, Section } from "@Bulma";
 import { Layout, Navbar, Sidebar } from "@components";
-import { apolloClient } from "@lib";
+import { getPopular } from "@framework/definition";
 
 const DEFINITIONS_PER_PAGES = 50;
 
-const GET_POPULAR = gql`
-  query Popular($letter: String!, $limit: Int) {
-    popular(letter: $letter, limit: $limit) {
-      id
-      word
-      meaning
-    }
-  }
-`;
-
 const getStaticProps = async ({ params }) => {
   const { letter } = params;
-  const {
-    data: { popular: definitions },
-  } = await apolloClient.query({
-    query: GET_POPULAR,
-    variables: { letter, limit: DEFINITIONS_PER_PAGES },
-  });
-  return { props: { definitions, letter }, revalidate: 60 * 60 };
+  const definitions = await getPopular({ letter, limit: DEFINITIONS_PER_PAGES });
+  return { props: { definitions }, revalidate: 60 * 60 };
 };
 
 const getStaticPaths = async () => {
