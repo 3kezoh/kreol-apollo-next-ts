@@ -1,7 +1,6 @@
-import { apolloClient } from "@lib";
 import { GET_DEFINITIONS } from "@graphql/definition/queries";
 
-const getAllDefinitions = async ({ author, word, page, limit, token } = {}) => {
+const getAllDefinitions = async (apolloClient, { author, word, page, limit, token } = {}) => {
   const { data } = await apolloClient.query({
     query: GET_DEFINITIONS,
     variables: { author, word, page: +page, limit },

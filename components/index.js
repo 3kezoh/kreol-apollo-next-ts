@@ -1,5 +1,6 @@
 export * as Auth from "./Auth";
 export * as Bulma from "./Bulma";
+export { default as DefineButton } from "./DefineButton";
 export { default as Definition } from "./Definition";
 export { default as EditableDefinition } from "./EditableDefinition";
 export { default as Error } from "./Error";

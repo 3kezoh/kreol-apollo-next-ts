@@ -1,12 +1,10 @@
 import Link from "next/link";
-import { useAuth } from "../Auth";
-import styles from "./Nav.module.css";
-import { Columns, Column, Container, Flex } from "../Bulma";
-import DefineButton from "../DefineButton";
-import Searchbar from "../Searchbar";
-import Logo from "../Logo";
+import { useAuth } from "@Auth";
+import { Columns, Column, Container, Flex } from "@Bulma";
+import { DefineButton, Searchbar, Logo } from "..";
 import Browse from "./Browse";
 import Categories from "./Categories";
+import styles from "./Nav.module.css";
 
 const Navbar = () => {
   const { user } = useAuth();
@@ -36,7 +34,7 @@ const Navbar = () => {
                 <Searchbar />
                 <DefineButton />
                 {user.isAuthenticated && (
-                  <Link href="/profile">
+                  <Link href={{ pathname: "/profile", query: { id: user.id } }}>
                     <a href="/profile" className="button is-light">
                       Profile
                     </a>

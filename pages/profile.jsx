@@ -1,44 +1,28 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
-import { gql, useMutation, useLazyQuery } from "@apollo/client";
-import InfiniteScroll from "react-infinite-scroll-component";
+import { useMutation } from "@apollo/client";
 import { useAuth } from "@Auth";
 import { Section, Columns, Column } from "@Bulma";
-import { EditableDefinition, Layout, Navbar, UserSettings } from "@components";
+import { EditableDefinition, Layout, Navbar, Pagination, UserSettings } from "@components";
+import { getAllDefinitions, getCount } from "@framework/definition";
+import { DELETE_DEFINITION } from "@graphql/definition/mutations";
 
-const GET_DEFINITIONS = gql`
-  query GetDefinitionsProfile($author: ID!, $page: Int) {
-    definitions(filter: { author: $author }, page: $page) {
-      id
-      word
-      meaning
-      example
-      score
-      language
-      createdAt
-      action
-    }
-  }
-`;
+const DEFINITIONS_PER_PAGES = 10;
 
-const DELETE_DEFINITION = gql`
-  mutation DeleteDefinition($id: ID!) {
-    deleteDefinition(id: $id) {
-      id
-    }
-  }
-`;
+const getServerSideProps = async ({ query, req }) => {
+  const { cookies } = req;
+  const { token } = cookies;
+  const { id = null, page = 1 } = query;
+  const limit = DEFINITIONS_PER_PAGES;
+  const definitions = await getAllDefinitions({ author: id, page, limit, token });
+  const count = await getCount({ author: id });
+  const pages = Math.ceil(count / DEFINITIONS_PER_PAGES);
+  return { props: { definitions, id, page: +page, pages } };
+};
 
-const Profile = () => {
-  const [page, setPage] = useState(1);
-  const [definitions, setDefinitions] = useState([]);
+const Profile = ({ definitions: _definitions, id, page, pages }) => {
+  const [definitions, setDefinitions] = useState(_definitions);
   const { user } = useAuth();
-
-  const [loadDefinitions] = useLazyQuery(GET_DEFINITIONS, {
-    variables: { author: user.id, page },
-    onCompleted: (data) => setDefinitions([...definitions, ...data.definitions]),
-    fetchPolicy: "cache-and-network",
-  });
 
   const [onDelete] = useMutation(DELETE_DEFINITION, {
     onCompleted: ({ deleteDefinition }) => {
@@ -47,14 +31,6 @@ const Profile = () => {
       }
     },
   });
-
-  useEffect(() => {
-    if (user.name) loadDefinitions();
-  }, [user.name, page]);
-
-  const next = () => {
-    setPage(page + 1);
-  };
 
   return (
     <>
@@ -69,16 +45,13 @@ const Profile = () => {
           </Column>
           <Column isTwoThirds="desktop" isFourFifths="tablet">
             <Section>
-              <InfiniteScroll
-                dataLength={definitions.length}
-                next={next}
-                hasMore={definitions.length !== 0}
-                scrollThreshold={0.9}
-              >
-                {definitions.map((definition) => (
+              {definitions &&
+                definitions.map((definition) => (
                   <EditableDefinition key={definition.id} data={definition} onDelete={onDelete} />
                 ))}
-              </InfiniteScroll>
+              {definitions && pages > 1 && (
+                <Pagination page={page} pages={pages} pathname="/profile" query={{ page, id }} />
+              )}
             </Section>
           </Column>
         </Columns>
@@ -88,3 +61,4 @@ const Profile = () => {
 };
 
 export default Profile;
+export { getServerSideProps };
