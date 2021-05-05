@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Columns, Column, Section } from "@Bulma";
 import { Layout, Navbar, Sidebar } from "@components";
 import { getPopular } from "@framework/definition";
-import { initializeApollo } from "@lib/apollo";
+import { initializeApollo } from "@lib/apollo/utils";
 
 const DEFINITIONS_PER_PAGES = 50;
 

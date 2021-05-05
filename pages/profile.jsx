@@ -6,7 +6,7 @@ import { Section, Columns, Column } from "@Bulma";
 import { EditableDefinition, Layout, Navbar, Pagination, UserSettings } from "@components";
 import { getAllDefinitions, getCount } from "@framework/definition";
 import { DELETE_DEFINITION } from "@graphql/definition/mutations";
-import { initializeApollo, addApolloState } from "@lib/apollo";
+import { initializeApollo, addApolloState } from "@lib/apollo/utils";
 
 const DEFINITIONS_PER_PAGES = 10;
 

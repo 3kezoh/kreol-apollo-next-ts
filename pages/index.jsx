@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
 import { getAllDefinitions, getCount } from "@framework/definition";
-import { initializeApollo, addApolloState } from "@lib/apollo";
+import { initializeApollo, addApolloState } from "@lib/apollo/utils";
 
 const DEFINITIONS_PER_PAGES = 5;
 
