@@ -2,9 +2,8 @@ import "bulma/css/bulma.css";
 import "../styles/globals.css";
 import "../styles/colors.css";
 import { ApolloProvider } from "@apollo/client";
-// import { apolloClient } from "@lib";
 import { AuthProvider } from "@Auth";
-import { useApollo } from "../lib/ac";
+import { useApollo } from "@lib/apollo";
 
 const App = ({ Component, pageProps }) => {
   const apolloClient = useApollo(pageProps);

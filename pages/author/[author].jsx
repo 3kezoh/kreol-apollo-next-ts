@@ -2,15 +2,18 @@ import Head from "next/head";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
 import { getAllDefinitions, getCount } from "@framework/definition";
+import { addApolloState, initializeApollo } from "@lib/apollo";
 
 const DEFINITIONS_PER_PAGES = 5;
 
 const getServerSideProps = async ({ query }) => {
+  const apolloClient = initializeApollo();
   const { author, id, page = 1 } = query;
-  const definitions = await getAllDefinitions({ author: id, page, limit: DEFINITIONS_PER_PAGES });
-  const count = await getCount({ author: id });
+  const limit = DEFINITIONS_PER_PAGES;
+  const definitions = await getAllDefinitions(apolloClient, { author: id, page, limit });
+  const count = await getCount(apolloClient, { author: id });
   const pages = Math.ceil(count / DEFINITIONS_PER_PAGES);
-  return { props: { definitions, author, id, page: +page, pages } };
+  return addApolloState(apolloClient, { props: { definitions, author, id, page: +page, pages } });
 };
 
 const Author = ({ definitions, page, pages, author, id }) => (

@@ -6,18 +6,20 @@ import { Section, Columns, Column } from "@Bulma";
 import { EditableDefinition, Layout, Navbar, Pagination, UserSettings } from "@components";
 import { getAllDefinitions, getCount } from "@framework/definition";
 import { DELETE_DEFINITION } from "@graphql/definition/mutations";
+import { initializeApollo, addApolloState } from "@lib/apollo";
 
 const DEFINITIONS_PER_PAGES = 10;
 
 const getServerSideProps = async ({ query, req }) => {
+  const apolloClient = initializeApollo();
   const { cookies } = req;
   const { token } = cookies;
   const { id = null, page = 1 } = query;
   const limit = DEFINITIONS_PER_PAGES;
-  const definitions = await getAllDefinitions({ author: id, page, limit, token });
-  const count = await getCount({ author: id });
+  const definitions = await getAllDefinitions(apolloClient, { author: id, page, limit, token });
+  const count = await getCount(apolloClient, { author: id });
   const pages = Math.ceil(count / DEFINITIONS_PER_PAGES);
-  return { props: { definitions, id, page: +page, pages } };
+  return addApolloState(apolloClient, { props: { definitions, id, page: +page, pages } });
 };
 
 const Profile = ({ definitions: _definitions, id, page, pages }) => {

@@ -3,12 +3,14 @@ import Link from "next/link";
 import { Columns, Column, Section } from "@Bulma";
 import { Layout, Navbar, Sidebar } from "@components";
 import { getPopular } from "@framework/definition";
+import { initializeApollo } from "@lib/apollo";
 
 const DEFINITIONS_PER_PAGES = 50;
 
 const getStaticProps = async ({ params }) => {
+  const apolloClient = initializeApollo();
   const { letter } = params;
-  const definitions = await getPopular({ letter, limit: DEFINITIONS_PER_PAGES });
+  const definitions = await getPopular(apolloClient, { letter, limit: DEFINITIONS_PER_PAGES });
   return { props: { definitions }, revalidate: 60 * 60 };
 };
 

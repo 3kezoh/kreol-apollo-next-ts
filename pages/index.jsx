@@ -2,17 +2,19 @@ import Head from "next/head";
 import { Columns, Column, Section } from "@Bulma";
 import { Definition, Layout, Navbar, Pagination, Sidebar } from "@components";
 import { getAllDefinitions, getCount } from "@framework/definition";
+import { initializeApollo, addApolloState } from "@lib/apollo";
 
 const DEFINITIONS_PER_PAGES = 5;
 
 const getServerSideProps = async ({ query, req }) => {
+  const apolloClient = initializeApollo();
   const { cookies } = req;
   const { token } = cookies;
   const { page = 1 } = query;
-  const definitions = await getAllDefinitions({ page, token });
-  const count = await getCount();
+  const definitions = await getAllDefinitions(apolloClient, { page, token });
+  const count = await getCount(apolloClient);
   const pages = Math.ceil(count / DEFINITIONS_PER_PAGES);
-  return { props: { definitions, page: +page, pages } };
+  return addApolloState(apolloClient, { props: { definitions, page: +page, pages } });
 };
 
 const Home = ({ definitions, pages, page }) => (
