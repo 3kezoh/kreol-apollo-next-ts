@@ -1,8 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
-import { Columns, Column, Section } from "@Bulma";
-import { Layout, Navbar, Sidebar } from "@components";
-import { getPopular } from "@framework/definition";
+import { Layout } from "@components";
+import { getPopular } from "@framework/ssr/definition";
 import { initializeApollo } from "@lib/apollo/utils";
 
 const DEFINITIONS_PER_PAGES = 50;
@@ -25,26 +24,16 @@ const Popular = ({ definitions }) => (
     <Head>
       <title>Popular</title>
     </Head>
-    <Navbar />
     <Layout>
-      <Columns>
-        <Column isOneFifth isHiddenMobile>
-          <Sidebar />
-        </Column>
-        <Column>
-          <Section>
-            {definitions.map(({ id, word, meaning }) => (
-              <div className="definition" key={id}>
-                <Link href={`/word/${encodeURIComponent(word)}`}>
-                  <a href={`/word/${encodeURIComponent(word)}`} className="word" title={meaning}>
-                    {word}
-                  </a>
-                </Link>
-              </div>
-            ))}
-          </Section>
-        </Column>
-      </Columns>
+      {definitions.map(({ id, word, meaning }) => (
+        <div className="definition" key={id}>
+          <Link href={`/word/${encodeURIComponent(word)}`}>
+            <a href={`/word/${encodeURIComponent(word)}`} className="word" title={meaning}>
+              {word}
+            </a>
+          </Link>
+        </div>
+      ))}
     </Layout>
   </>
 );

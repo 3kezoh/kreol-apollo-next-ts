@@ -3,8 +3,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { gql, useMutation } from "@apollo/client";
 import { useAuth } from "@Auth";
-import { Button, Control, Input, Label, Section, Select, Textarea } from "@Bulma";
-import { Form, Layout } from "@components";
+import { Button, Container, Control, Input, Label, Section, Select, Textarea } from "@Bulma";
+import { Form } from "@components";
 import { handleGraphQLError } from "../utils";
 
 const CREATE_DEFINITION = gql`
@@ -45,7 +45,7 @@ const Define = () => {
       <Head>
         <title>Define</title>
       </Head>
-      <Layout>
+      <Container isMaxDesktop>
         <Section>
           <Form onSubmit={onSubmit}>
             <Label htmlFor="word">
@@ -95,7 +95,7 @@ const Define = () => {
             <Button type="submit">Submit</Button>
           </Form>
         </Section>
-      </Layout>
+      </Container>
     </>
   );
 };

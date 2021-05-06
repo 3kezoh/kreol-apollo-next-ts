@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useAuth } from "@Auth";
-import { Button, Control, Input, Label, Section } from "@Bulma";
-import { Form, Google, Layout } from "@components";
+import { Button, Container, Control, Input, Label, Section } from "@Bulma";
+import { Form, Google } from "@components";
 
 const Login = () => {
   const router = useRouter();
@@ -36,7 +36,7 @@ const Login = () => {
       <Head>
         <title>Login</title>
       </Head>
-      <Layout>
+      <Container isMaxDesktop>
         <Section>
           <Form onSubmit={onSubmit}>
             <Label htmlFor="email">
@@ -67,7 +67,7 @@ const Login = () => {
           </Form>
           <Google />
         </Section>
-      </Layout>
+      </Container>
     </>
   );
 };

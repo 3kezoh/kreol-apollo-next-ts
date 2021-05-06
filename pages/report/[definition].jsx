@@ -3,8 +3,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { useAuth } from "@Auth";
-import { Section } from "@Bulma";
-import { Layout, ReportForm, ReportConfirmation } from "@components";
+import { Container, Section } from "@Bulma";
+import { ReportForm, ReportConfirmation } from "@components";
 import { handleGraphQLError } from "../../utils";
 
 const REPORT = gql`
@@ -78,7 +78,7 @@ const Report = () => {
       <Head>
         <title>Report</title>
       </Head>
-      <Layout>
+      <Container isMaxDesktop>
         <Section>
           {reported ? (
             <ReportConfirmation reported={reported} />
@@ -92,7 +92,7 @@ const Report = () => {
             />
           )}
         </Section>
-      </Layout>
+      </Container>
     </>
   );
 };
