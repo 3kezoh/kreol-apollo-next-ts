@@ -58,7 +58,7 @@ const AuthProvider = (props) => {
     apolloClient.resetStore();
     setUser({ isAuthenticated: false });
     localStorage.removeItem("token");
-  });
+  }, [apolloClient]);
 
   return (
     <AuthContext.Provider

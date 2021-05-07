@@ -1,5 +1,6 @@
 import { Container, Columns, Column, Section } from "@Bulma";
-import { Navbar, Sidebar } from "@components";
+import Navbar from "../Navbar";
+import Sidebar from "../Sidebar";
 
 const Layout = ({ children }) => (
   <>

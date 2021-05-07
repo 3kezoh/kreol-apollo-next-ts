@@ -45,7 +45,7 @@ const Definition = ({ data }) => {
 
   return (
     <article className={`content p-5 ${styles.definition}`}>
-      <h1 id={styles.title}>
+      <h1>
         <Link href={`/word/${encodeURIComponent(word)}`}>
           <a href={`/word/${encodeURIComponent(word)}`}>{word}</a>
         </Link>

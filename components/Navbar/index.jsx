@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { useAuth } from "@Auth";
 import { Columns, Column, Container, Flex } from "@Bulma";
-import { DefineButton, Searchbar, Logo } from "..";
+import DefineButton from "../DefineButton";
+import Logo from "../Logo";
+import Searchbar from "../Searchbar";
 import Browse from "./Browse";
 import Categories from "./Categories";
 import styles from "./Nav.module.css";

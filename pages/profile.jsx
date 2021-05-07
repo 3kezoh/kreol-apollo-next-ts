@@ -1,7 +1,13 @@
 import Head from "next/head";
 import { useAuth } from "@Auth";
 import { Section, Columns, Column, Container } from "@Bulma";
-import { EditableDefinition, Navbar, Pagination, UserSettings } from "@components";
+import {
+  EditableDefinition,
+  Navbar,
+  LoadingDefinition,
+  Pagination,
+  UserSettings,
+} from "@components";
 import { useDefinitions, useQuery, usePages, useDelete } from "@framework/hooks/definition";
 
 const Profile = () => {
@@ -25,6 +31,7 @@ const Profile = () => {
           </Column>
           <Column isTwoThirds="desktop" isFourFifths="tablet">
             <Section>
+              {!definitions && [...Array(5).keys()].map((_) => <LoadingDefinition key={_} />)}
               {definitions &&
                 definitions.map((data) => (
                   <EditableDefinition

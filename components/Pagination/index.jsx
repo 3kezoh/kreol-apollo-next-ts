@@ -41,7 +41,7 @@ const paginate = (current, length, delta = 4) => {
   return pages;
 };
 
-const Pager = ({ page, pages, pathname, query, prefetch }) => {
+const Pager = ({ page = 1, pages, pathname, query, prefetch }) => {
   const _pages = paginate(page, pages);
   const prevPage = page - 1 || 1;
   const nextPage = page + 1 > pages ? pages : page + 1;

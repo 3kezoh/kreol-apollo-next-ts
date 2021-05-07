@@ -1,0 +1,20 @@
+@keyframes pulse {
+  0% {
+    background: hsla(0, 0%, 66%, 0.1);
+  }
+  50% {
+    background: hsla(0, 0%, 66%, 0.3);
+  }
+  100% {
+    background: hsla(0, 0%, 66%, 0.1);
+  }
+}
+
+.loading {
+  height: 220px;
+  animation: pulse 1s infinite ease-in-out;
+}
+
+.loading:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
