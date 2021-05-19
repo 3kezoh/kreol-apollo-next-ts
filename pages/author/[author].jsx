@@ -6,7 +6,6 @@ const Author = () => {
   const { author, id, page } = useQuery();
   const pages = usePages({ author: id });
   const { definitions } = useDefinitions({ page, author: id });
-  console.log(author, id, page, pages, definitions);
   return (
     <>
       <Head>
