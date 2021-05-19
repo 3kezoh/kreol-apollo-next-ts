@@ -56,7 +56,7 @@ const Pager = ({ page = 1, pages, pathname, query, prefetch }) => {
             query={{ ...query, page: prevPage }}
             title={`Go to page ${prevPage}`}
             onMouseOver={() => {
-              if (page !== prevPage) prefetch({ page: prevPage });
+              if (prefetch && page !== prevPage) prefetch({ page: prevPage });
             }}
           />
         )}
@@ -67,7 +67,7 @@ const Pager = ({ page = 1, pages, pathname, query, prefetch }) => {
             query={{ ...query, page: nextPage }}
             title={`Go to page ${nextPage}`}
             onMouseOver={() => {
-              if (page !== nextPage) prefetch({ page: nextPage });
+              if (prefetch && page !== nextPage) prefetch({ page: nextPage });
             }}
           />
         )}
@@ -83,7 +83,7 @@ const Pager = ({ page = 1, pages, pathname, query, prefetch }) => {
                 query={{ ...query, page: _page }}
                 title={`Go to page ${_page}`}
                 onMouseOver={() => {
-                  if (page !== _page) prefetch({ page: _page });
+                  if (prefetch && page !== _page) prefetch({ page: _page });
                 }}
               />
             ) : (

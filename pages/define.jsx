@@ -1,24 +1,12 @@
 import { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useAuth } from "@Auth";
 import { Button, Container, Control, Input, Label, Section, Select, Textarea } from "@Bulma";
 import { Form } from "@components";
+import { CREATE_DEFINITION } from "@graphql/definition/mutations";
 import { handleGraphQLError } from "../utils";
-
-const CREATE_DEFINITION = gql`
-  mutation CreateDefinition(
-    $word: String!
-    $meaning: String!
-    $example: String
-    $language: String!
-  ) {
-    createDefinition(word: $word, meaning: $meaning, example: $example, language: $language) {
-      id
-    }
-  }
-`;
 
 const Define = () => {
   const router = useRouter();

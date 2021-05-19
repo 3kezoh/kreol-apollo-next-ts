@@ -16,16 +16,18 @@ const useDefinitions = ({ page, author, word } = {}) => {
 
   const { definitions } = data ?? [];
 
-  const prefetchDefinitions = ({ author, word } = {}) => ({ page }) =>
-    client.query({
-      query: GET_DEFINITIONS,
-      variables: {
-        page,
-        author,
-        limit: DEFINITIONS_PER_PAGES,
-        word,
-      },
-    });
+  const prefetchDefinitions =
+    ({ author, word } = {}) =>
+    ({ page }) =>
+      client.query({
+        query: GET_DEFINITIONS,
+        variables: {
+          page,
+          author,
+          limit: DEFINITIONS_PER_PAGES,
+          word,
+        },
+      });
 
   return { definitions, prefetchDefinitions };
 };

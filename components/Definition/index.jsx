@@ -30,7 +30,7 @@ const Definition = ({ data }) => {
   });
 
   useSubscription(SUB_DEFINITION, {
-    variables: { ids: [id] },
+    variables: { id },
     onSubscriptionData: ({ subscriptionData }) => setScore(subscriptionData.data.definition.score),
   });
 

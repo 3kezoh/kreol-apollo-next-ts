@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 const SUB_DEFINITION = gql`
-  subscription SubDefinition($ids: [ID!]!) {
-    definition(ids: $ids) {
+  subscription SubDefinition($id: ID!) {
+    definition(id: $id) {
       id
       score
     }
