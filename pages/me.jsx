@@ -7,7 +7,7 @@ const Me = () => {
   if (error) return <div>Error :c</div>;
   return (
     <>
-      <div>{data.me.email}</div>
+      <div>{data.me.id}</div>
       <div>{data.me.name}</div>
     </>
   );

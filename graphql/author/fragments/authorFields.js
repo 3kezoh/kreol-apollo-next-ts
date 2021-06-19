@@ -4,7 +4,6 @@ const AUTHOR_FIELDS = gql`
   fragment AuthorFields on User {
     id
     name
-    email
   }
 `;
 

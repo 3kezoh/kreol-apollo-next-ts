@@ -5,7 +5,8 @@ const LOGIN = gql`
     login(email: $email, password: $password) {
       token
       user {
-        email
+        id
+        name
       }
     }
   }
