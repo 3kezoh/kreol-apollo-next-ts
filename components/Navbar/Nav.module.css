@@ -8,13 +8,8 @@
     position: sticky;
     top: 0;
   }
-
-  .list {
-    color: white;
-    display: flex;
-  }
 }
 
-#nav {
+.nav {
   background-color: var(--raisin-black);
 }

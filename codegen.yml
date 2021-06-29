@@ -1,0 +1,28 @@
+watch: true
+hooks:
+  afterAllFileWrite:
+    - prettier --write
+overwrite: true
+schema: http://localhost:4000/graphql
+documents: graphql/**/*.graphql
+generates:
+  generated/graphql.tsx:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      maybeValue: T | undefined
+      preResolveTypes: true
+      skipTypeNameForRoot: true
+      exportFragmentSpreadSubTypes: true
+  generated/page.tsx:
+    plugins:
+      - graphql-codegen-apollo-next-ssr
+    config:
+      reactApolloVersion: 3
+      documentMode: external
+      importDocumentNodeExternallyFrom: ./graphql
+    preset: import-types
+    presetConfig:
+      typesPath: ./graphql

@@ -1,0 +1,5 @@
+query Popular($letter: String, $limit: Int) {
+  popular(letter: $letter, limit: $limit) {
+    ...CoreDefinitionFields
+  }
+}

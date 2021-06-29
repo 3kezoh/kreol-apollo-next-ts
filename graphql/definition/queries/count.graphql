@@ -1,0 +1,3 @@
+query Count($author: ID, $word: String) {
+  count(filter: { author: $author, word: $word })
+}

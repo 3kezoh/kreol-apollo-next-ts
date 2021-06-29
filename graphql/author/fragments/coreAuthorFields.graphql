@@ -1,0 +1,4 @@
+fragment CoreAuthorFields on User {
+  id
+  name
+}

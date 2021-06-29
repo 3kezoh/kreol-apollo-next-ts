@@ -1,0 +1,6 @@
+subscription Definition($id: ID!) {
+  definition(id: $id) {
+    id
+    score
+  }
+}

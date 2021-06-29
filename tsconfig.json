@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@components": ["components/index.js"],
+      "@components/*": ["components/*"],
+      "@Bulma": ["components/Bulma/index.js"],
+      "@Bulma/*": ["components/Bulma/*"],
+      "@Auth": ["components/Auth/index.ts"],
+      "@Auth/*": ["components/Auth/*"],
+      "@hooks": ["hooks/index.ts"],
+      "@hooks/*": ["hooks/*"],
+      "@graphql": ["graphql/index.js"],
+      "@graphql/*": ["graphql/*"],
+      "@lib": ["lib/index.js"],
+      "@lib/*": ["lib/*"],
+      "@framework": ["framework/index.js"],
+      "@framework/*": ["framework/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}

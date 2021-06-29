@@ -1,0 +1,6 @@
+fragment CoreDefinitionFields on Definition {
+  id
+  word
+  meaning
+  example
+}

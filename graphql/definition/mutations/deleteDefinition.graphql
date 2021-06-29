@@ -1,0 +1,5 @@
+mutation DeleteDefinition($id: ID!) {
+  deleteDefinition(id: $id) {
+    id
+  }
+}

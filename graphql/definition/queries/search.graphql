@@ -1,0 +1,7 @@
+query Search($match: String!, $page: Int) {
+  search(match: $match, page: $page) {
+    id
+    word
+    meaning
+  }
+}

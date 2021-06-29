@@ -1,1 +1,1 @@
-export { default as handleGraphQLError } from "./handleGraphQLError";
+export * from "./handleGraphQLError";

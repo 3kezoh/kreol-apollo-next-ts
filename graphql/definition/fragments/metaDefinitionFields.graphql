@@ -1,0 +1,6 @@
+fragment MetaDefinitionFields on Definition {
+  action
+  language
+  score
+  createdAt
+}

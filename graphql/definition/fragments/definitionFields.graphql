@@ -1,0 +1,7 @@
+fragment DefinitionFields on Definition {
+  ...CoreDefinitionFields
+  ...MetaDefinitionFields
+  author {
+    ...AuthorFields
+  }
+}
