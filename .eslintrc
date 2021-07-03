@@ -1,5 +1,5 @@
 {
-  "extends": ["next","prettier"],
+  "extends": ["next", "prettier"],
   "settings": {
     "import/resolver": {
       "alias": {
@@ -10,9 +10,10 @@
           ["@hooks", "./hooks"],
           ["@graphql", "./graphql"],
           ["@lib", "./lib"],
-          ["@framework", "./framework"]
+          ["@framework", "./framework"],
+          ["@utils", "./utils"]
         ],
-        "extensions": [".js", ".jsx"]
+        "extensions": [".js", ".jsx", ".tsx"]
       }
     }
   }

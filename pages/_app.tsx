@@ -1,5 +1,6 @@
 import { ApolloProvider } from "@apollo/client";
 import { AuthProvider } from "@Auth";
+import { Login } from "@components";
 import { useApollo } from "@lib/apollo/hooks";
 import "bulma/css/bulma.css";
 import { AppProps } from "next/app";
@@ -12,6 +13,7 @@ const App = ({ Component, pageProps }: AppProps) => {
     <ApolloProvider client={apolloClient}>
       <AuthProvider>
         <Component {...pageProps} />
+        <Login />
       </AuthProvider>
     </ApolloProvider>
   );

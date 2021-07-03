@@ -160,9 +160,9 @@ export type QueryVoteArgs = {
 
 export type Report = {
   __typename?: "Report";
-  reporter?: Maybe<User>;
-  definition?: Maybe<Definition>;
-  reason?: Maybe<Scalars["Int"]>;
+  reporter: User;
+  definition: Definition;
+  reason: Scalars["Int"];
   message?: Maybe<Scalars["String"]>;
 };
 
@@ -294,6 +294,52 @@ export type DefinitionSubscriptionVariables = Exact<{
 
 export type DefinitionSubscription = {
   definition: { __typename?: "DefinitionSubscriptionPayload"; id: string; score: number };
+};
+
+export type ReportMutationVariables = Exact<{
+  definition: Scalars["ID"];
+  reason: Scalars["Int"];
+  message?: Maybe<Scalars["String"]>;
+}>;
+
+export type ReportMutation = {
+  report?: Maybe<{
+    __typename?: "Report";
+    reason: number;
+    message?: Maybe<string>;
+    definition: {
+      __typename?: "Definition";
+      id: string;
+      word: string;
+      meaning: string;
+      example?: Maybe<string>;
+      score: number;
+      createdAt: any;
+      author: { __typename?: "User"; name: string };
+    };
+  }>;
+};
+
+export type ReportedQueryVariables = Exact<{
+  definition: Scalars["ID"];
+}>;
+
+export type ReportedQuery = {
+  report?: Maybe<{
+    __typename?: "Report";
+    reason: number;
+    message?: Maybe<string>;
+    definition: {
+      __typename?: "Definition";
+      id: string;
+      word: string;
+      meaning: string;
+      example?: Maybe<string>;
+      score: number;
+      createdAt: any;
+      author: { __typename?: "User"; name: string };
+    };
+  }>;
 };
 
 export type VoteMutationVariables = Exact<{
@@ -733,6 +779,109 @@ export function useDefinitionSubscription(
 }
 export type DefinitionSubscriptionHookResult = ReturnType<typeof useDefinitionSubscription>;
 export type DefinitionSubscriptionResult = Apollo.SubscriptionResult<DefinitionSubscription>;
+export const ReportDocument = gql`
+  mutation Report($definition: ID!, $reason: Int!, $message: String) {
+    report(definition: $definition, reason: $reason, message: $message) {
+      definition {
+        id
+        word
+        meaning
+        example
+        score
+        createdAt
+        author {
+          name
+        }
+      }
+      reason
+      message
+    }
+  }
+`;
+export type ReportMutationFn = Apollo.MutationFunction<ReportMutation, ReportMutationVariables>;
+
+/**
+ * __useReportMutation__
+ *
+ * To run a mutation, you first call `useReportMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useReportMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [reportMutation, { data, loading, error }] = useReportMutation({
+ *   variables: {
+ *      definition: // value for 'definition'
+ *      reason: // value for 'reason'
+ *      message: // value for 'message'
+ *   },
+ * });
+ */
+export function useReportMutation(
+  baseOptions?: Apollo.MutationHookOptions<ReportMutation, ReportMutationVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<ReportMutation, ReportMutationVariables>(ReportDocument, options);
+}
+export type ReportMutationHookResult = ReturnType<typeof useReportMutation>;
+export type ReportMutationResult = Apollo.MutationResult<ReportMutation>;
+export type ReportMutationOptions = Apollo.BaseMutationOptions<
+  ReportMutation,
+  ReportMutationVariables
+>;
+export const ReportedDocument = gql`
+  query Reported($definition: ID!) {
+    report(definition: $definition) {
+      definition {
+        id
+        word
+        meaning
+        example
+        score
+        createdAt
+        author {
+          name
+        }
+      }
+      reason
+      message
+    }
+  }
+`;
+
+/**
+ * __useReportedQuery__
+ *
+ * To run a query within a React component, call `useReportedQuery` and pass it any options that fit your needs.
+ * When your component renders, `useReportedQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useReportedQuery({
+ *   variables: {
+ *      definition: // value for 'definition'
+ *   },
+ * });
+ */
+export function useReportedQuery(
+  baseOptions: Apollo.QueryHookOptions<ReportedQuery, ReportedQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<ReportedQuery, ReportedQueryVariables>(ReportedDocument, options);
+}
+export function useReportedLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<ReportedQuery, ReportedQueryVariables>
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<ReportedQuery, ReportedQueryVariables>(ReportedDocument, options);
+}
+export type ReportedQueryHookResult = ReturnType<typeof useReportedQuery>;
+export type ReportedLazyQueryHookResult = ReturnType<typeof useReportedLazyQuery>;
+export type ReportedQueryResult = Apollo.QueryResult<ReportedQuery, ReportedQueryVariables>;
 export const VoteDocument = gql`
   mutation Vote($definition: ID!, $action: Int!) {
     vote(definition: $definition, action: $action) {

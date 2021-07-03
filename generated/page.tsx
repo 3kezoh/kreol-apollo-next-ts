@@ -250,3 +250,38 @@ export const ssrDefinition = {
   getServerPage: getServerPageDefinition,
   withPage: withPageDefinition,
 };
+
+export async function getServerPageReported(
+  options: Omit<Apollo.QueryOptions<Types.ReportedQueryVariables>, "query">,
+  apolloClient: Apollo.ApolloClient<NormalizedCacheObject>
+) {
+  const data = await apolloClient.query<Types.ReportedQuery>({
+    ...options,
+    query: Operations.ReportedDocument,
+  });
+
+  const apolloState = apolloClient.cache.extract();
+
+  return {
+    props: {
+      apolloState: apolloState,
+      data: data?.data,
+      error: data?.error ?? data?.errors ?? null,
+    },
+  };
+}
+export type PageReportedComp = React.FC<{ data?: Types.ReportedQuery; error?: Apollo.ApolloError }>;
+export const withPageReported = (
+  optionsFunc?: (
+    router: NextRouter
+  ) => QueryHookOptions<Types.ReportedQuery, Types.ReportedQueryVariables>
+) => (WrappedComponent: PageReportedComp): NextPage => (props) => {
+  const router = useRouter();
+  const options = optionsFunc ? optionsFunc(router) : {};
+  const { data, error } = useQuery(Operations.ReportedDocument, options);
+  return <WrappedComponent {...props} data={data} error={error} />;
+};
+export const ssrReported = {
+  getServerPage: getServerPageReported,
+  withPage: withPageReported,
+};

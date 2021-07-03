@@ -1,15 +1,15 @@
 import { useAuth } from "@Auth";
+import DefineButton from "@components/DefineButton";
+import Logo from "@components/Logo";
+import Searchbar from "@components/Searchbar";
 import Link from "next/link";
 import { Button, Columns, Container, Element } from "react-bulma-components";
-import DefineButton from "../DefineButton";
-import Logo from "../Logo";
-import Searchbar from "../Searchbar";
 import Browse from "./Browse";
 import Categories from "./Categories";
-import styles from "./Nav.module.css";
+import styles from "./Navbar.module.css";
 
 export const Navbar = () => {
-  const { user } = useAuth();
+  const { user, logout, open } = useAuth();
 
   return (
     <header className={styles.header}>
@@ -35,10 +35,15 @@ export const Navbar = () => {
               <Container display="flex">
                 <Searchbar />
                 <DefineButton />
-                {user.isAuthenticated && (
-                  <Button color="light">
-                    <Link href={{ pathname: "/profile", query: { id: user.id } }}>Profile</Link>
-                  </Button>
+                {user.isAuthenticated ? (
+                  <>
+                    <Button color="light">
+                      <Link href={{ pathname: "/profile", query: { id: user.id } }}>Profile</Link>
+                    </Button>
+                    <Button onClick={logout}>Logout</Button>
+                  </>
+                ) : (
+                  <Button onClick={open}>Login</Button>
                 )}
               </Container>
             </Columns.Column>

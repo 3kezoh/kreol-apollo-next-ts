@@ -1,18 +1,21 @@
 import { useAuth } from "@Auth";
-import { Pagination } from "@components/Bulma/Pagination";
+import { Login } from "@components";
+import { MouseEvent } from "react";
+import { Button, Content } from "react-bulma-components";
 
 const Test = () => {
-  const { user, logout, withGoogle } = useAuth();
+  const { user, logout, open } = useAuth();
+
+  const onClick = () => {
+    if (!user.isAuthenticated) open();
+  };
 
   return (
     <>
-      <div>{JSON.stringify(user, null, 3)}</div>
-      <button type="button" onClick={logout}>
-        logout
-      </button>
-      <button type="button" onClick={withGoogle}>
-        google
-      </button>
+      <Button onClick={logout}>Logout</Button>
+      <Button onClick={onClick}>Action that need authentication</Button>
+      <Login />
+      <Content>{String(user.isAuthenticated)}</Content>
     </>
   );
 };

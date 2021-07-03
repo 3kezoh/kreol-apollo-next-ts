@@ -1,15 +1,12 @@
 import {
-  DefinitionFieldsFragment,
+  DefinitionsQuery,
   DefinitionsQueryVariables,
-  Maybe,
   useDefinitionsQuery,
 } from "generated/graphql";
 import { useState } from "react";
 
-type definitions = Array<Maybe<{ __typename?: "Definition" } & DefinitionFieldsFragment>>;
-
 export const useDefinitions = (variables?: DefinitionsQueryVariables) => {
-  const [definitions, setDefinitions] = useState<definitions>([]);
+  const [definitions, setDefinitions] = useState<DefinitionsQuery["definitions"]>([]);
   useDefinitionsQuery({
     variables,
     fetchPolicy: "cache-and-network",

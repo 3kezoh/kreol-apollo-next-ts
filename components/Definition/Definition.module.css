@@ -1,5 +1,6 @@
 .definition {
   background: var(--snow);
+  padding: 1.5rem;
 }
 
 .buttons {
@@ -21,7 +22,7 @@
 
 @media screen and (min-width: 1024px) {
   .definition {
-    padding-left: 60px !important;
+    padding-left: 60px;
     position: relative;
   }
 
@@ -31,9 +32,7 @@
     top: 0;
     left: 0;
     padding-top: 24px;
-    display: flex;
     flex-direction: column;
-    align-items: center;
   }
 
   .buttons button {

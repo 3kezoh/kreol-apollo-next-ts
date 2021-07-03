@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@components": ["components/index.js"],
+      "@components": ["components/index.ts"],
       "@components/*": ["components/*"],
       "@Bulma": ["components/Bulma/index.js"],
       "@Bulma/*": ["components/Bulma/*"],
@@ -28,7 +28,9 @@
       "@lib": ["lib/index.js"],
       "@lib/*": ["lib/*"],
       "@framework": ["framework/index.js"],
-      "@framework/*": ["framework/*"]
+      "@framework/*": ["framework/*"],
+      "@utils": ["utils/index.ts"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

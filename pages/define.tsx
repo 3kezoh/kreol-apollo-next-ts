@@ -4,10 +4,10 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import { Button, Container, Form, Section } from "react-bulma-components";
-import { handleGraphQLError } from "../utils";
+import { getValidationErrors } from "../utils";
 
 const Define = () => {
-  const { user } = useAuth();
+  const { user, open } = useAuth();
   const router = useRouter();
   const [word, setWord] = useState("");
   const [meaning, setMeaning] = useState("");
@@ -17,12 +17,12 @@ const Define = () => {
 
   const [createDefinition] = useCreateDefinitionMutation({
     onCompleted: () => router.back(),
-    onError: ({ graphQLErrors }) => handleGraphQLError({ graphQLErrors, setErrors }),
+    onError: ({ graphQLErrors }) => setErrors(getValidationErrors(graphQLErrors)),
   });
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (!user.isAuthenticated) return router.push("/signup");
+    if (!user.isAuthenticated) return open();
     return createDefinition({ variables: { word, meaning, example, language } });
   };
 

@@ -17,11 +17,11 @@ const DATE_FORMAT = "d MMMM yyyy";
 type Props = { data: DefinitionFieldsFragment };
 
 const Definition = ({ data }: Props) => {
+  const { user, open } = useAuth();
+  const router = useRouter();
   const { id, word, meaning, example, author, language, createdAt } = data;
   const [score, setScore] = useState(data.score);
   const [action, setAction] = useState(data.action);
-  const { user } = useAuth();
-  const router = useRouter();
   const date = format(new Date(createdAt), DATE_FORMAT, { locale });
 
   const [vote] = useVoteMutation({
@@ -49,8 +49,13 @@ const Definition = ({ data }: Props) => {
   const downvote = () => _vote(-1);
   const unvote = () => _vote(0);
 
+  const onReport = () => {
+    if (!user.isAuthenticated) return open();
+    router.push(`/report/${encodeURIComponent(id)}`);
+  };
+
   return (
-    <Content p={5} className={styles.definition}>
+    <Content renderAs="article" className={styles.definition}>
       <h1>
         <Link href={`/word/${encodeURIComponent(word)}`}>{word}</Link>
       </h1>
@@ -83,8 +88,8 @@ const Definition = ({ data }: Props) => {
           {language === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
         </div>
         <div className={styles.reportButton}>
-          <Button color="danger" outlined>
-            <Link href={`/report/${encodeURIComponent(id)}`}>Report</Link>
+          <Button color="danger" outlined onClick={onReport}>
+            Report
           </Button>
         </div>
       </Element>
