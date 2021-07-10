@@ -17,18 +17,14 @@
     "paths": {
       "@components": ["components/index.ts"],
       "@components/*": ["components/*"],
-      "@Bulma": ["components/Bulma/index.js"],
+      "@Bulma": ["components/Bulma/index.ts"],
       "@Bulma/*": ["components/Bulma/*"],
       "@Auth": ["components/Auth/index.ts"],
       "@Auth/*": ["components/Auth/*"],
       "@hooks": ["hooks/index.ts"],
       "@hooks/*": ["hooks/*"],
-      "@graphql": ["graphql/index.js"],
-      "@graphql/*": ["graphql/*"],
       "@lib": ["lib/index.js"],
       "@lib/*": ["lib/*"],
-      "@framework": ["framework/index.js"],
-      "@framework/*": ["framework/*"],
       "@utils": ["utils/index.ts"],
       "@utils/*": ["utils/*"]
     }

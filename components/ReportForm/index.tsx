@@ -9,7 +9,7 @@ type Props = {
   setMessage: Dispatch<SetStateAction<string>>;
 };
 
-const ReportForm = ({ onSubmit, reason, setReason, message, setMessage }: Props) => (
+export const ReportForm = ({ onSubmit, reason, setReason, message, setMessage }: Props) => (
   <form onSubmit={onSubmit}>
     <Form.Control>
       <Form.Label className="radio">
@@ -74,5 +74,3 @@ const ReportForm = ({ onSubmit, reason, setReason, message, setMessage }: Props)
     <Button color="danger">Report</Button>
   </form>
 );
-
-export default ReportForm;

@@ -8,12 +8,10 @@
           ["@Bulma", "./components/Bulma"],
           ["@Auth", "./components/Auth"],
           ["@hooks", "./hooks"],
-          ["@graphql", "./graphql"],
           ["@lib", "./lib"],
-          ["@framework", "./framework"],
           ["@utils", "./utils"]
         ],
-        "extensions": [".js", ".jsx", ".tsx"]
+        "extensions": [".js", ".ts", ".jsx", ".tsx"]
       }
     }
   }

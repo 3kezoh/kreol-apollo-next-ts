@@ -1,15 +1,13 @@
-import { Flex } from "../Bulma";
+import { Element } from "react-bulma-components";
 import styles from "./Loader.module.css";
 
-const Loader = () => (
-  <Flex justifyContent="center">
+export const Loader = () => (
+  <Element display="flex" justifyContent="center">
     <div className={styles.loader}>
       <div />
       <div />
       <div />
       <div />
     </div>
-  </Flex>
+  </Element>
 );
-
-export default Loader;

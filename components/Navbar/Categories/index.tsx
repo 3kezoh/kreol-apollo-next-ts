@@ -1,27 +1,27 @@
-import { useState } from "react";
 import Link from "next/link";
+import { useState } from "react";
+import { Dropdown } from "../../Bulma/Dropdown";
 import styles from "./Categories.module.css";
-import { Dropdown, DropdownContent, DropdownItem, DropdownMenu } from "../../Bulma/Dropdown";
 
-const Categories = () => {
+export const Categories = () => {
   const categories = ["lorem", "ipsum", "dolor", "sit", "amet"];
-  const [isActive, setIsActive] = useState(false);
+  const [active, setActive] = useState(false);
 
   return (
-    <Dropdown el="li" isHoverable isActive={isActive}>
+    <Dropdown hoverable active={active}>
       <button
         className={styles.button}
         type="button"
         aria-haspopup="true"
         aria-controls="categorie-dropdown"
-        onClick={() => setIsActive(!isActive)}
-        onBlur={() => setIsActive(false)}
+        onClick={() => setActive(!active)}
+        onBlur={() => setActive(false)}
       >
         Categories
       </button>
-      <DropdownMenu id="categorie-dropdown">
-        <DropdownContent>
-          <DropdownItem>
+      <Dropdown.Menu id="categorie-dropdown">
+        <Dropdown.Content>
+          <Dropdown.Item>
             <ul className={styles.categories}>
               {categories.map((categorie) => (
                 <li role="none" key={categorie}>
@@ -37,11 +37,9 @@ const Categories = () => {
                 </li>
               ))}
             </ul>
-          </DropdownItem>
-        </DropdownContent>
-      </DropdownMenu>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown.Menu>
     </Dropdown>
   );
 };
-
-export default Categories;

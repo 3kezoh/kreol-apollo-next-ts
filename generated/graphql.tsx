@@ -267,6 +267,7 @@ export type DefinitionsQueryVariables = Exact<{
 }>;
 
 export type DefinitionsQuery = {
+  count: number;
   definitions: Array<Maybe<{ __typename?: "Definition" } & DefinitionFieldsFragment>>;
 };
 
@@ -307,16 +308,7 @@ export type ReportMutation = {
     __typename?: "Report";
     reason: number;
     message?: Maybe<string>;
-    definition: {
-      __typename?: "Definition";
-      id: string;
-      word: string;
-      meaning: string;
-      example?: Maybe<string>;
-      score: number;
-      createdAt: any;
-      author: { __typename?: "User"; name: string };
-    };
+    definition: { __typename?: "Definition" } & DefinitionFieldsFragment;
   }>;
 };
 
@@ -329,16 +321,7 @@ export type ReportedQuery = {
     __typename?: "Report";
     reason: number;
     message?: Maybe<string>;
-    definition: {
-      __typename?: "Definition";
-      id: string;
-      word: string;
-      meaning: string;
-      example?: Maybe<string>;
-      score: number;
-      createdAt: any;
-      author: { __typename?: "User"; name: string };
-    };
+    definition: { __typename?: "Definition" } & DefinitionFieldsFragment;
   }>;
 };
 
@@ -613,6 +596,7 @@ export const DefinitionsDocument = gql`
     definitions(filter: { author: $author, word: $word }, page: $page, limit: $limit) {
       ...DefinitionFields
     }
+    count(filter: { author: $author, word: $word })
   }
   ${DefinitionFieldsFragmentDoc}
 `;
@@ -783,20 +767,13 @@ export const ReportDocument = gql`
   mutation Report($definition: ID!, $reason: Int!, $message: String) {
     report(definition: $definition, reason: $reason, message: $message) {
       definition {
-        id
-        word
-        meaning
-        example
-        score
-        createdAt
-        author {
-          name
-        }
+        ...DefinitionFields
       }
       reason
       message
     }
   }
+  ${DefinitionFieldsFragmentDoc}
 `;
 export type ReportMutationFn = Apollo.MutationFunction<ReportMutation, ReportMutationVariables>;
 
@@ -835,20 +812,13 @@ export const ReportedDocument = gql`
   query Reported($definition: ID!) {
     report(definition: $definition) {
       definition {
-        id
-        word
-        meaning
-        example
-        score
-        createdAt
-        author {
-          name
-        }
+        ...DefinitionFields
       }
       reason
       message
     }
   }
+  ${DefinitionFieldsFragmentDoc}
 `;
 
 /**

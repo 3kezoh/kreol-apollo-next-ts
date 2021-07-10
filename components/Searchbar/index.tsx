@@ -1,14 +1,12 @@
-import { Maybe, useSearchLazyQuery } from "generated/graphql";
+import { Maybe, useSearchLazyQuery, SearchQuery } from "generated/graphql";
 import Link from "next/link";
 import { ChangeEvent, useEffect, useState } from "react";
-import { Input } from "../Bulma";
+import { Form } from "react-bulma-components";
 import styles from "./Searchbar.module.css";
 
-type search = Array<Maybe<{ id: string; word: string; meaning: string }>>;
-
-const Searchbar = () => {
+export const Searchbar = () => {
   const [search, setSearch] = useState("");
-  const [definitions, setDefinitions] = useState<search>([]);
+  const [definitions, setDefinitions] = useState<SearchQuery["search"]>([]);
   const [inputFocus, setInputFocus] = useState(false);
   const [dropdownFocus, setDropdownFocus] = useState(false);
 
@@ -29,7 +27,7 @@ const Searchbar = () => {
 
   return (
     <div className={styles.searchbar}>
-      <Input
+      <Form.Input
         placeholder="Start typing here..."
         type="text"
         value={search}
@@ -60,5 +58,3 @@ const Searchbar = () => {
     </div>
   );
 };
-
-export default Searchbar;

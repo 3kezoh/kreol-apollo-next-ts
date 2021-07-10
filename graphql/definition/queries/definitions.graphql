@@ -2,4 +2,5 @@ query Definitions($author: ID, $word: String, $page: Int, $limit: Int) {
   definitions(filter: { author: $author, word: $word }, page: $page, limit: $limit) {
     ...DefinitionFields
   }
+  count(filter: { author: $author, word: $word })
 }

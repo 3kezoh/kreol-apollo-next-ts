@@ -15,7 +15,7 @@ export const Pagination = ({ page = 1, pages, pathname, query, prefetch }: Props
   const nextPage = page + 1 > pages ? pages : page + 1;
 
   return pages > 1 ? (
-    <_Pagination isCentered>
+    <_Pagination>
       {page !== 1 && (
         <_Pagination.Previous
           page={prevPage}

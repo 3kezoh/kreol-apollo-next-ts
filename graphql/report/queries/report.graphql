@@ -1,15 +1,7 @@
 query Reported($definition: ID!) {
   report(definition: $definition) {
     definition {
-      id
-      word
-      meaning
-      example
-      score
-      createdAt
-      author {
-        name
-      }
+      ...DefinitionFields
     }
     reason
     message

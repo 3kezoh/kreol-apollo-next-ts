@@ -16,7 +16,7 @@ const DATE_FORMAT = "d MMMM yyyy";
 
 type Props = { data: DefinitionFieldsFragment };
 
-const Definition = ({ data }: Props) => {
+export const Definition = ({ data }: Props) => {
   const { user, open } = useAuth();
   const router = useRouter();
   const { id, word, meaning, example, author, language, createdAt } = data;
@@ -96,5 +96,3 @@ const Definition = ({ data }: Props) => {
     </Content>
   );
 };
-
-export default Definition;

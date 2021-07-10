@@ -1,11 +1,11 @@
 import { useAuth } from "@Auth";
-import DefineButton from "@components/DefineButton";
-import Logo from "@components/Logo";
-import Searchbar from "@components/Searchbar";
+import { DefineButton } from "@components/DefineButton";
+import { Logo } from "@components/Logo";
+import { Searchbar } from "@components/Searchbar";
 import Link from "next/link";
 import { Button, Columns, Container, Element } from "react-bulma-components";
 import Browse from "./Browse";
-import Categories from "./Categories";
+import { Categories } from "./Categories";
 import styles from "./Navbar.module.css";
 
 export const Navbar = () => {

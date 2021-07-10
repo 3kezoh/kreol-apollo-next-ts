@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { ReactNode } from "react";
 import { Ellipsis } from "./Ellipsis";
 import { Link } from "./Link";
@@ -6,13 +5,11 @@ import { List } from "./List";
 import { Next } from "./Next";
 import { Previous } from "./Previous";
 
-type Props = { children: ReactNode; isCentered: boolean };
+type Props = { children: ReactNode };
 
-export const Pagination = ({ children, isCentered, ...props }: Props) => {
-  const classes = { "is-centered": isCentered };
-  const className = classNames("pagination", classes);
+export const Pagination = ({ children, ...props }: Props) => {
   return (
-    <nav className={className} role="navigation" {...props}>
+    <nav className="pagination is-centered" role="navigation" {...props}>
       {children}
     </nav>
   );

@@ -1,4 +1,4 @@
-export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
+export const APOLLO_STATE_PROP_NAME = "apolloState";
 export * from "./cache";
 export * from "./credentials";
 export * from "./link";

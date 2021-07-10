@@ -1,5 +1,4 @@
 import { useAuth } from "@Auth";
-import { Container, Section } from "@Bulma";
 import { ReportConfirmation, ReportForm } from "@components";
 import { getValidationErrors } from "@utils";
 import {
@@ -11,6 +10,7 @@ import {
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
+import { Container, Section } from "react-bulma-components";
 
 type Report = ReportMutation["report"] | ReportedQuery["report"] | null;
 type Errors = { message?: string[] };
@@ -54,7 +54,7 @@ const Report = () => {
       <Head>
         <title>Report</title>
       </Head>
-      <Container isMaxDesktop>
+      <Container breakpoint="desktop" max>
         <Section>
           {reported && <ReportConfirmation reported={reported} />}
           {!reported && called && !loading && (

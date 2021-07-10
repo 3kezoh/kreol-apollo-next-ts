@@ -1,16 +1,18 @@
 import { useAuth } from "@Auth";
-import { Button, Flex } from "@Bulma";
 import { format } from "date-fns";
 import { fr as locale } from "date-fns/locale";
-import { useVoteMutation } from "generated/graphql";
+import { DefinitionFieldsFragment, useVoteMutation } from "generated/graphql";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { Button, Element } from "react-bulma-components";
 import styles from "./EditableDefinition.module.css";
 
 const DATE_FORMAT = "d MMMM yyyy";
 
-const EditableDefinition = ({ data, onDelete }) => {
+type Props = { data: DefinitionFieldsFragment; onDelete: () => void };
+
+export const EditableDefinition = ({ data, onDelete }: Props) => {
   const { id, word, meaning, example, language, createdAt } = data;
   const [score, setScore] = useState(data.score);
   const [action, setAction] = useState(data.action);
@@ -27,7 +29,7 @@ const EditableDefinition = ({ data, onDelete }) => {
 
   const _vote = (action: -1 | 0 | 1) => {
     if (!user.isAuthenticated) return router.push("/signup");
-    return vote({ variables: { id, action } });
+    return vote({ variables: { definition: id, action } });
   };
 
   const upvote = () => _vote(1);
@@ -49,24 +51,18 @@ const EditableDefinition = ({ data, onDelete }) => {
         <p className={styles.score}>{score}</p>
         <Button onClick={action === -1 ? unvote : downvote}>{action === -1 ? "↓" : "-"}</Button>
       </div>
-      <Flex direction="row" alignItems="center">
+      <Element display="flex" flexDirection="row" alignItems="center">
         <div className={styles.language}>
           {language === "fr" ? <span>&#x1F1EB;&#x1F1F7;</span> : <span>&#x1F1EC;&#x1F1EB;</span>}
           &#x27A1;
           {language === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
         </div>
         <div className={styles.deleteButton}>
-          <Button
-            color="danger"
-            buttonStyle="outlined"
-            onClick={() => onDelete({ variables: { id } })}
-          >
+          <Button color="danger" outlined onClick={onDelete}>
             Delete
           </Button>
         </div>
-      </Flex>
+      </Element>
     </article>
   );
 };
-
-export default EditableDefinition;

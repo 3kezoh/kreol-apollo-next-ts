@@ -1,27 +1,27 @@
-import { useState } from "react";
+import { Dropdown } from "@Bulma";
 import Link from "next/link";
+import { useState } from "react";
 import styles from "./Browse.module.css";
-import { Dropdown, DropdownContent, DropdownItem, DropdownMenu } from "../../Bulma/Dropdown";
 
 const Browse = () => {
-  const alphabet = [..."abcdefghijklmnopqrstuvwxyz"];
-  const [isActive, setIsActive] = useState(false);
+  const alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+  const [active, setActive] = useState(false);
 
   return (
-    <Dropdown el="li" isHoverable isActive={isActive}>
+    <Dropdown hoverable active={active}>
       <button
         className={styles.button}
         type="button"
         aria-haspopup="true"
         aria-controls="alphabet-dropdown"
-        onClick={() => setIsActive(!isActive)}
-        onBlur={() => setIsActive(false)}
+        onClick={() => setActive(!active)}
+        onBlur={() => setActive(false)}
       >
         Browse
       </button>
-      <DropdownMenu id="alphabet-dropdown">
-        <DropdownContent>
-          <DropdownItem>
+      <Dropdown.Menu id="alphabet-dropdown">
+        <Dropdown.Content>
+          <Dropdown.Item>
             <ul className={styles.alphabet}>
               {alphabet.map((letter) => (
                 <li role="none" key={letter}>
@@ -37,9 +37,9 @@ const Browse = () => {
                 </li>
               ))}
             </ul>
-          </DropdownItem>
-        </DropdownContent>
-      </DropdownMenu>
+          </Dropdown.Item>
+        </Dropdown.Content>
+      </Dropdown.Menu>
     </Dropdown>
   );
 };

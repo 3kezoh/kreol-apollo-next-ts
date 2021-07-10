@@ -1,15 +1,7 @@
 mutation Report($definition: ID!, $reason: Int!, $message: String) {
   report(definition: $definition, reason: $reason, message: $message) {
     definition {
-      id
-      word
-      meaning
-      example
-      score
-      createdAt
-      author {
-        name
-      }
+      ...DefinitionFields
     }
     reason
     message

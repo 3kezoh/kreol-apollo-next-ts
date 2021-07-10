@@ -23,6 +23,8 @@ generates:
       reactApolloVersion: 3
       documentMode: external
       importDocumentNodeExternallyFrom: ./graphql
+      withHOC: false
+      skipTypename: true
     preset: import-types
     presetConfig:
       typesPath: ./graphql
