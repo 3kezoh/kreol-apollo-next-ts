@@ -1,8 +1,7 @@
 import { useApolloClient } from "@apollo/client";
 import { popup } from "@utils";
-import { useMeLazyQuery, useMeQuery } from "generated/graphql";
-import { useEffect } from "react";
-import { ReactNode, useCallback, useState } from "react";
+import { useMeLazyQuery } from "generated/graphql";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { userInitialState } from "./initialState";
 
@@ -26,9 +25,10 @@ export const AuthProvider = (props: Props) => {
   });
 
   useEffect(() => {
+    me();
     const user = localStorage.getItem("user");
     if (user) setUser(JSON.parse(user));
-  }, []);
+  }, [me]);
 
   useEffect(() => {
     if (user.isAuthenticated) {

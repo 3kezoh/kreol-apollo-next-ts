@@ -1,11 +1,11 @@
-import Head from "next/head";
 import { Definition, Layout, LoadingDefinition, Pagination } from "@components";
-import { useDefinitions, useQuery, usePages } from "@hooks";
+import { useDefinitions, usePages, useQuery } from "@hooks";
+import Head from "next/head";
 
 const Author = () => {
   const { author, id, page } = useQuery();
   const pages = usePages({ author: id });
-  const definitions = useDefinitions({ page, author: id });
+  const definitions = useDefinitions({ author: id, page });
 
   return (
     <>
