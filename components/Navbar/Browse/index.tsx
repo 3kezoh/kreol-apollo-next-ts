@@ -1,6 +1,6 @@
 import { Dropdown } from "@Bulma";
 import Link from "next/link";
-import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./Browse.module.css";
 
 const Browse = () => {

@@ -1,6 +1,18 @@
 import { useAuth } from "@Auth";
 import { Login } from "@components";
+import { initializeApollo } from "@lib/apollo/utils";
+import { ssrVerify } from "generated/page";
+import { GetServerSideProps } from "next";
 import { Button, Content } from "react-bulma-components";
+import { stringifyCookie } from "@utils";
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const apolloClient = initializeApollo();
+  const context = { headers: { Cookie: stringifyCookie(req.cookies) } };
+  const { props } = await ssrVerify.getServerPage({ context }, apolloClient);
+  console.log(props);
+  return { props: {} };
+};
 
 const Test = () => {
   const { user, logout, open } = useAuth();
