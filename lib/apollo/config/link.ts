@@ -2,13 +2,20 @@ import { HttpLink, split } from "@apollo/client";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from "@apollo/client/utilities";
 
-const httpLink = new HttpLink({ uri: "http://localhost:4000/graphql", credentials: "include" });
+/**
+ * TODO url as variable
+ */
+
+const httpLink = new HttpLink({
+  uri: "https://ekezoh-kreol-back-end.herokuapp.com/graphql",
+  credentials: "include",
+});
 
 let _link = null;
 
 if (typeof window !== "undefined") {
   const wsLink = new WebSocketLink({
-    uri: "ws://localhost:4000/subscriptions",
+    uri: "ws://ekezoh-kreol-back-end.herokuapp.com/subscriptions",
     options: { reconnect: true },
   });
 

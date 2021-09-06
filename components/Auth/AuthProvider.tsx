@@ -5,6 +5,10 @@ import { ReactNode, useCallback, useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import { userInitialState } from "./initialState";
 
+/**
+ * TODO url as variable
+ */
+
 type Props = {
   children: ReactNode;
 };
@@ -40,7 +44,7 @@ export const AuthProvider = (props: Props) => {
 
   const withGoogle = () => {
     if (google === null || google.closed) {
-      google = popup("http://localhost:4000/auth/google", "_blank", 600, 600);
+      google = popup("https://ekezoh-kreol-back-end.herokuapp.com/auth/google", "_blank", 600, 600);
       const googleTimer = setInterval(() => {
         if (google?.closed) {
           me();
@@ -53,7 +57,9 @@ export const AuthProvider = (props: Props) => {
   };
 
   const logout = useCallback(async () => {
-    await fetch("http://localhost:4000/auth/logout", { credentials: "include" });
+    await fetch("https://ekezoh-kreol-back-end.herokuapp.com/auth/logout", {
+      credentials: "include",
+    });
     apolloClient.resetStore();
     setUser(userInitialState);
   }, [apolloClient]);
