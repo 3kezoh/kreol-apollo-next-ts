@@ -15,7 +15,7 @@ let _link = null;
 
 if (typeof window !== "undefined") {
   const wsLink = new WebSocketLink({
-    uri: "ws://ekezoh-kreol-back-end.herokuapp.com/subscriptions",
+    uri: "wss://ekezoh-kreol-back-end.herokuapp.com/subscriptions",
     options: { reconnect: true },
   });
 
