@@ -13,7 +13,7 @@ const DATE_FORMAT = "d MMMM yyyy";
 type Props = { data: DefinitionFieldsFragment; onDelete: () => void };
 
 export const EditableDefinition = ({ data, onDelete }: Props) => {
-  const { id, word, meaning, example, language, createdAt } = data;
+  const { id, word, meaning, example, translation, createdAt } = data;
   const [score, setScore] = useState(data.score);
   const [action, setAction] = useState(data.action);
   const { user } = useAuth();
@@ -52,10 +52,10 @@ export const EditableDefinition = ({ data, onDelete }: Props) => {
         <Button onClick={action === -1 ? unvote : downvote}>{action === -1 ? "↓" : "-"}</Button>
       </div>
       <Element display="flex" flexDirection="row" alignItems="center">
-        <div className={styles.language}>
-          {language === "fr" ? <span>&#x1F1EB;&#x1F1F7;</span> : <span>&#x1F1EC;&#x1F1EB;</span>}
+        <div className={styles.translation}>
+          {translation === "fr" ? <span>&#x1F1EB;&#x1F1F7;</span> : <span>&#x1F1EC;&#x1F1EB;</span>}
           &#x27A1;
-          {language === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
+          {translation === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
         </div>
         <div className={styles.deleteButton}>
           <Button color="danger" outlined onClick={onDelete}>

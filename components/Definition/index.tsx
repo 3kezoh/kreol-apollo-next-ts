@@ -19,7 +19,7 @@ type Props = { data: DefinitionFieldsFragment };
 export const Definition = ({ data }: Props) => {
   const { user, open } = useAuth();
   const router = useRouter();
-  const { id, word, meaning, example, author, language, createdAt } = data;
+  const { id, word, meaning, example, author, translation, createdAt } = data;
   const [score, setScore] = useState(data.score);
   const [action, setAction] = useState(data.action);
   const date = format(new Date(createdAt), DATE_FORMAT, { locale });
@@ -41,7 +41,7 @@ export const Definition = ({ data }: Props) => {
   });
 
   const _vote = (action: -1 | 0 | 1) => {
-    if (!user.isAuthenticated) return router.push("/signup");
+    if (!user.isAuthenticated) return open();
     return vote({ variables: { definition: id, action } });
   };
 
@@ -55,7 +55,7 @@ export const Definition = ({ data }: Props) => {
   };
 
   return (
-    <Content renderAs="article" className={styles.definition}>
+    <Content renderAs="div" className={styles.definition} data-cy="definition">
       <h1>
         <Link href={`/word/${encodeURIComponent(word)}`}>{word}</Link>
       </h1>
@@ -77,15 +77,27 @@ export const Definition = ({ data }: Props) => {
         </Link>
       </p>
       <div className={styles.buttons}>
-        <Button onClick={action === 1 ? unvote : upvote}>{action === 1 ? "↑" : "-"}</Button>
-        <p className={styles.score}>{score}</p>
-        <Button onClick={action === -1 ? unvote : downvote}>{action === -1 ? "↓" : "-"}</Button>
+        <Button
+          onClick={action === 1 ? unvote : upvote}
+          data-cy={action === 1 ? "unvote" : "upvote"}
+        >
+          {action === 1 ? "↑" : "-"}
+        </Button>
+        <p className={styles.score} data-cy="score">
+          {score}
+        </p>
+        <Button
+          onClick={action === -1 ? unvote : downvote}
+          data-cy={action === -1 ? "unvote" : "downvote"}
+        >
+          {action === -1 ? "↓" : "-"}
+        </Button>
       </div>
       <Element display="flex" flexDirection="row" alignItems="center">
-        <div className={styles.language}>
-          {language === "fr" ? <span>&#x1F1EB;&#x1F1F7;</span> : <span>&#x1F1EC;&#x1F1EB;</span>}
+        <div className={styles.translation}>
+          {translation === "fr" ? <span>&#x1F1EB;&#x1F1F7;</span> : <span>&#x1F1EC;&#x1F1EB;</span>}
           &#x27A1;
-          {language === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
+          {translation === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
         </div>
         <div className={styles.reportButton}>
           <Button color="danger" outlined onClick={onReport}>

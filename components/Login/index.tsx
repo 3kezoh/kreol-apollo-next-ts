@@ -12,8 +12,10 @@ export const Login = () => {
   return (
     <>
       <Modal show={show} onClose={close}>
-        <Modal.Card>
-          <Button onClick={withGoogle}>CONTINUER AVEC GOOGLE</Button>
+        <Modal.Card data-cy="login-modal-card">
+          <Button onClick={withGoogle} data-cy="login-button">
+            CONTINUER AVEC GOOGLE
+          </Button>
         </Modal.Card>
       </Modal>
     </>

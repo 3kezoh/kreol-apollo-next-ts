@@ -1,9 +1,9 @@
-import Head from "next/head";
-import Link from "next/link";
 import { Layout } from "@components";
 import { initializeApollo } from "@lib/apollo/utils";
-import { GetStaticPaths, GetStaticProps } from "next";
 import { PagePopularComp, ssrPopular } from "generated/page";
+import { GetStaticPaths, GetStaticProps } from "next";
+import Head from "next/head";
+import Link from "next/link";
 
 const DEFINITIONS_PER_PAGES = 50;
 
