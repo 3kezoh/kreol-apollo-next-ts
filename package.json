@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "debug": "SET NODE_OPTIONS='--inspect' && next dev -p 3001",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
     "codegen:watch": "graphql-codegen --config codegen.yml",
+    "cypress:demo": "cypress open --config-file cypress/configs/demo.json",
+    "cypress:demo:run": "cypress run --config-file cypress/configs/demo.json",
+    "cypress:demo:mobile": "cypress open --config-file cypress/configs/mobile.json",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:run": "cypress run",
+    "debug": "SET NODE_OPTIONS='--inspect' && next dev -p 3001",
+    "dev": "next dev",
+    "lint": "next lint",
+    "start": "next start"
   },
   "dependencies": {
     "@apollo/client": "^3.3.2",
@@ -19,6 +22,7 @@
     "chance": "^1.1.8",
     "classnames": "^2.3.1",
     "date-fns": "^2.16.1",
+    "dayjs": "^1.11.0",
     "deepmerge": "^4.2.2",
     "dotenv": "^16.0.0",
     "graphql": "^15.4.0",

@@ -5,7 +5,7 @@ import { DefinitionFieldsFragment, useVoteMutation } from "generated/graphql";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Button, Element } from "react-bulma-components";
+import { Button, Element, Content } from "react-bulma-components";
 import styles from "./EditableDefinition.module.css";
 
 const DATE_FORMAT = "d MMMM yyyy";
@@ -37,14 +37,20 @@ export const EditableDefinition = ({ data, onDelete }: Props) => {
   const unvote = () => _vote(0);
 
   return (
-    <article className={`content p-5 ${styles.definition}`}>
+    <Content className={styles.definition}>
       <h1 id={styles.title}>
         <Link href={`/word/${encodeURIComponent(word)}`}>
-          <a href={`/word/${encodeURIComponent(word)}`}>{word}</a>
+          <a href={`/word/${encodeURIComponent(word)}`} data-cy="word">
+            {word}
+          </a>
         </Link>
       </h1>
-      <p>{meaning}</p>
-      {example && <p className="is-italic">{example}</p>}
+      <p data-cy="meaning">{meaning}</p>
+      {example && (
+        <p className="is-italic" data-cy="example">
+          {example}
+        </p>
+      )}
       <p>{`Posté le ${date}`}</p>
       <div className={styles.buttons}>
         <Button onClick={action === 1 ? unvote : upvote}>{action === 1 ? "↑" : "-"}</Button>
@@ -52,17 +58,17 @@ export const EditableDefinition = ({ data, onDelete }: Props) => {
         <Button onClick={action === -1 ? unvote : downvote}>{action === -1 ? "↓" : "-"}</Button>
       </div>
       <Element display="flex" flexDirection="row" alignItems="center">
-        <div className={styles.translation}>
+        <div className={styles.translation} data-cy={`translation-${word}`}>
           {translation === "fr" ? <span>&#x1F1EB;&#x1F1F7;</span> : <span>&#x1F1EC;&#x1F1EB;</span>}
           &#x27A1;
           {translation === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
         </div>
         <div className={styles.deleteButton}>
-          <Button color="danger" outlined onClick={onDelete}>
+          <Button color="danger" outlined onClick={onDelete} data-cy="delete">
             Delete
           </Button>
         </div>
       </Element>
-    </article>
+    </Content>
   );
 };

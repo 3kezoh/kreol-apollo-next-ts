@@ -5,7 +5,7 @@ import Head from "next/head";
 const Author = () => {
   const { author, id, page } = useQuery();
   const pages = usePages({ author: id });
-  const definitions = useDefinitions({ author: id, page });
+  const [definitions] = useDefinitions({ author: id, page });
 
   return (
     <>

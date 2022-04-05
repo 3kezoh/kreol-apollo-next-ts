@@ -12,14 +12,7 @@ export const Layout = ({ children }: Props) => (
     <Navbar />
     <main>
       <Container breakpoint="desktop" max>
-        <Columns>
-          <Columns.Column size="one-fifth" mobile={{ display: "hidden" }}>
-            <Sidebar />
-          </Columns.Column>
-          <Columns.Column desktop={{ size: "two-thirds" }} tablet={{ size: "four-fifths" }}>
-            <Section>{children}</Section>
-          </Columns.Column>
-        </Columns>
+        <Section>{children}</Section>
       </Container>
     </main>
   </>

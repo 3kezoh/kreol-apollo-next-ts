@@ -10,7 +10,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const apolloClient = initializeApollo();
   const context = { headers: { Cookie: stringifyCookie(req.cookies) } };
   const { props } = await ssrVerify.getServerPage({ context }, apolloClient);
-  console.log(props);
   return { props: {} };
 };
 

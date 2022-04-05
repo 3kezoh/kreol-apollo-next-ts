@@ -9,24 +9,28 @@ import {
 import { useDefinitions, usePages, useQuery } from "@hooks";
 import { useDeleteDefinitionMutation } from "generated/graphql";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { Columns, Container, Section } from "react-bulma-components";
 
 const Profile = () => {
   const { user } = useAuth();
   const { id, page } = useQuery();
   const pages = usePages({ author: id });
-  const definitions = useDefinitions({ page, author: id });
+  const [definitions, setDefinitions] = useDefinitions({ page, author: id });
 
   const [deleteDefinition] = useDeleteDefinitionMutation({ fetchPolicy: "no-cache" });
 
-  const onDelete = (id: string) =>
-    deleteDefinition({
+  const onDelete = async (id: string) => {
+    await deleteDefinition({
       variables: { id },
       update: (cache) => {
         cache.evict({ id: `Definition:${id}` });
         cache.gc();
       },
     });
+
+    setDefinitions(definitions.filter((definition) => definition?.id !== id));
+  };
 
   return (
     <>

@@ -3,6 +3,7 @@ import * as Apollo from "@apollo/client";
 import type React from "react";
 import * as Operations from "./graphql";
 import * as Types from "./graphql";
+import { PopularQuery } from "./graphql";
 
 export async function getServerPageMe(
   options: Omit<Apollo.QueryOptions<Types.MeQueryVariables>, "query">,
@@ -119,7 +120,7 @@ export async function getServerPagePopular(
     },
   };
 }
-export type PagePopularComp = React.FC<{ data?: Types.PopularQuery; error?: Apollo.ApolloError }>;
+export type PagePopularComp = React.FC<{ data?: PopularQuery; error?: Apollo.ApolloError }>;
 export const ssrPopular = {
   getServerPage: getServerPagePopular,
 };

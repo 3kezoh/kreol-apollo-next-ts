@@ -15,39 +15,35 @@ export const Navbar = () => {
     <header className={styles.header}>
       <nav className={styles.nav} role="navigation" aria-label="main navigation">
         <Container breakpoint="desktop" max>
-          <Columns>
-            <Columns.Column size="one-fifth" />
-            <Columns.Column>
-              <Container display="flex">
-                <Logo />
-                <Element renderAs="ul" textColor="white" display="flex">
-                  <Browse />
-                  <Categories />
-                </Element>
-              </Container>
-            </Columns.Column>
-          </Columns>
+          <Container display="flex" p={3}>
+            <Logo />
+            <Element renderAs="ul" textColor="white" display="flex">
+              <Browse />
+              <Categories />
+            </Element>
+          </Container>
         </Container>
         <Container breakpoint="desktop" max>
-          <Columns>
-            <Columns.Column size="one-fifth" />
-            <Columns.Column>
-              <Container display="flex">
-                <Searchbar />
-                <DefineButton />
-                {user.isAuthenticated ? (
-                  <>
-                    <Button color="light">
-                      <Link href={{ pathname: "/profile", query: { id: user.id } }}>Profile</Link>
-                    </Button>
-                    <Button onClick={logout}>Logout</Button>
-                  </>
-                ) : (
-                  <Button onClick={open}>Login</Button>
-                )}
-              </Container>
-            </Columns.Column>
-          </Columns>
+          <Container display="flex" p={3}>
+            <Searchbar />
+            <DefineButton />
+            {user.isAuthenticated ? (
+              <>
+                <Button color="light">
+                  <Link href={{ pathname: "/profile", query: { id: user.id } }} passHref>
+                    <a data-cy="profile">Profile</a>
+                  </Link>
+                </Button>
+                <Button onClick={logout} data-cy="logout">
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Button onClick={open} data-cy="login">
+                Login
+              </Button>
+            )}
+          </Container>
         </Container>
       </nav>
     </header>

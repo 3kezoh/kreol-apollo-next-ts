@@ -1,4 +1,9 @@
-import { CyHttpMessages } from "cypress/types/net-stubbing";
+import { CyHttpMessages, RouteHandler } from "cypress/types/net-stubbing";
+
+export const GRAPHQL_API = "http://localhost:4000/graphql";
+
+export const interceptGraphQLAPI = (callback: RouteHandler): Cypress.Chainable<null> =>
+  cy.intercept("POST", GRAPHQL_API, callback);
 
 /**
  * Match GraphQL query or mutation based on the operation name

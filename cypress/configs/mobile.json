@@ -1,0 +1,12 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "env": {
+    "COMMAND_DELAY": 1000,
+    "TYPE_DELAY": 30,
+    "SCROLL_DURATION": 1000
+  },
+  "scrollBehavior": "center",
+  "viewportHeight": 926,
+  "viewportWidth": 428,
+  "videoCompression": false
+}

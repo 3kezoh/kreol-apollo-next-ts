@@ -1,0 +1,18 @@
+[
+  {
+    "id": "624c2b2812d4fc52801c96d5",
+    "word": "Faire le délicat",
+    "meaning": "Fè chichi",
+    "example": "Gadé misié ka fè chichi - « Regarde le gars faire le délicat »",
+    "__typename": "Definition",
+    "action": 0,
+    "translation": "fr",
+    "score": 0,
+    "createdAt": "2022-04-05T11:42:32.698Z",
+    "author": {
+      "id": "624883126f20c82672ba0526",
+      "name": "Leone",
+      "__typename": "User"
+    }
+  }
+]

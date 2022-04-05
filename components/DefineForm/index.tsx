@@ -1,5 +1,5 @@
 import { FormEvent, Dispatch, SetStateAction } from "react";
-import { Button, Form } from "react-bulma-components";
+import { Button, Form, Message } from "react-bulma-components";
 
 type Props = {
   errors: { [key: string]: string };
@@ -40,7 +40,11 @@ export const DefineForm = ({
           />
         </Form.Control>
       </Form.Label>
-      {errors.word && <div>{errors.word}</div>}
+      {errors.word && (
+        <Message color="danger" data-cy="error-word">
+          {errors.word}
+        </Message>
+      )}
       <Form.Label htmlFor="meaning">
         Meaning
         <Form.Control>
@@ -54,7 +58,11 @@ export const DefineForm = ({
           />
         </Form.Control>
       </Form.Label>
-      {errors.meaning && <div>{errors.meaning}</div>}
+      {errors.meaning && (
+        <Message color="danger" data-cy="error-meaning">
+          {errors.meaning}
+        </Message>
+      )}
       <Form.Label htmlFor="example">
         Example
         <Form.Control>
@@ -67,7 +75,11 @@ export const DefineForm = ({
           />
         </Form.Control>
       </Form.Label>
-      {errors.example && <div>{errors.example}</div>}
+      {errors.example && (
+        <Message color="danger" data-cy="error-example">
+          {errors.example}
+        </Message>
+      )}
       <Form.Label htmlFor="translation">
         Translation
         <Form.Control>

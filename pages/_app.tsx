@@ -4,6 +4,7 @@ import { Login } from "@components";
 import { useApollo } from "@lib/apollo/hooks";
 import "bulma/css/bulma.css";
 import { AppProps } from "next/app";
+import { Container } from "react-bulma-components";
 import "../styles/colors.css";
 import "../styles/globals.css";
 

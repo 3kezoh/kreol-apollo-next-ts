@@ -1,0 +1,17 @@
+{
+  "definition": {
+    "id": "62486fa225b6d3263efb2bb6",
+    "word": "Not a cool word",
+    "meaning": "Not cool definition",
+    "example": "Not a cool example",
+    "__typename": "Definition",
+    "action": null,
+    "translation": "fr",
+    "score": -999,
+    "createdAt": "2022-04-02T15:45:39.019Z",
+    "author": { "id": "62486f9b25b6d3263efb288a", "name": "Not a cool guy", "__typename": "User" }
+  },
+  "reason": 3,
+  "message": "It's not cool",
+  "__typename": "Report"
+}
