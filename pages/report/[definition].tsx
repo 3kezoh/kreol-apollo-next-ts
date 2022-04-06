@@ -10,7 +10,7 @@ import {
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
-import { Container, Section } from "react-bulma-components";
+import { Block, Button, Container, Section } from "react-bulma-components";
 
 type Report = ReportMutation["report"] | ReportedQuery["report"] | null;
 type Errors = { message?: string[] };
@@ -19,7 +19,7 @@ const Report = () => {
   const router = useRouter();
   const { definition } = router.query;
   const { user, open } = useAuth();
-  const [reason, setReason] = useState(3);
+  const [reason, setReason] = useState(0);
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<Errors>({});
   const [reported, setReported] = useState<Report>(null);
@@ -56,16 +56,21 @@ const Report = () => {
       </Head>
       <Container breakpoint="desktop" max>
         <Section>
-          {reported && <ReportConfirmation reported={reported} />}
-          {!reported && called && !loading && (
-            <ReportForm
-              onSubmit={onSubmit}
-              reason={reason}
-              setReason={setReason}
-              message={message}
-              setMessage={setMessage}
-            />
-          )}
+          <Block>
+            {reported && <ReportConfirmation reported={reported} />}
+            {!reported && called && !loading && (
+              <ReportForm
+                onSubmit={onSubmit}
+                reason={reason}
+                setReason={setReason}
+                message={message}
+                setMessage={setMessage}
+              />
+            )}
+          </Block>
+          <Button onClick={() => router.back()} data-cy="back">
+            Go back
+          </Button>
           {errors.message?.map((error) => (
             <div key={error}>{error}</div>
           ))}

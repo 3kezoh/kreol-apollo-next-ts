@@ -15,9 +15,10 @@ export const Pagination = ({ page = 1, pages, pathname, query, prefetch }: Props
   const nextPage = page + 1 > pages ? pages : page + 1;
 
   return pages > 1 ? (
-    <_Pagination>
+    <_Pagination data-cy="pagination">
       {page !== 1 && (
         <_Pagination.Previous
+          data-cy="previous"
           page={prevPage}
           pathname={pathname}
           query={{ ...query, page: prevPage }}
@@ -29,6 +30,7 @@ export const Pagination = ({ page = 1, pages, pathname, query, prefetch }: Props
       )}
       {page !== pages && (
         <_Pagination.Next
+          data-cy="next"
           page={nextPage}
           pathname={pathname}
           query={{ ...query, page: nextPage }}
@@ -42,6 +44,7 @@ export const Pagination = ({ page = 1, pages, pathname, query, prefetch }: Props
         {_pages.map((_page) =>
           _page > 0 ? (
             <_Pagination.Link
+              data-cy={`page-${_page}`}
               key={_page}
               aria-label={`Goto page ${_page}`}
               isCurrent={page === _page}

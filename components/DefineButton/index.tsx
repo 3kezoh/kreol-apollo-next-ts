@@ -2,7 +2,9 @@ import Link from "next/link";
 import { Button } from "react-bulma-components";
 
 export const DefineButton = () => (
-  <Button>
-    <Link href="/define">+</Link>
-  </Button>
+  <Link href="/define" passHref>
+    <a className="button" data-cy="define">
+      +
+    </a>
+  </Link>
 );

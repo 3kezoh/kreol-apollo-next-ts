@@ -30,8 +30,6 @@ export const AuthProvider = (props: Props) => {
 
   useEffect(() => {
     me();
-    const user = localStorage.getItem("user");
-    if (user) setUser(JSON.parse(user));
   }, [me]);
 
   useEffect(() => {
@@ -44,7 +42,7 @@ export const AuthProvider = (props: Props) => {
 
   const withGoogle = () => {
     if (google === null || google.closed) {
-      google = popup("https://ekezoh-kreol-back-end.herokuapp.com/auth/google", "_blank", 600, 600);
+      google = popup("http://localhost:4000/auth/google", "_blank", 600, 600);
       const googleTimer = setInterval(() => {
         if (google?.closed) {
           me();
@@ -57,7 +55,7 @@ export const AuthProvider = (props: Props) => {
   };
 
   const logout = useCallback(async () => {
-    await fetch("https://ekezoh-kreol-back-end.herokuapp.com/auth/logout", {
+    await fetch("http://localhost:4000/auth/logout", {
       credentials: "include",
     });
     apolloClient.resetStore();

@@ -1,6 +1,6 @@
 fragment MetaDefinitionFields on Definition {
   action
-  language
+  translation
   score
   createdAt
 }

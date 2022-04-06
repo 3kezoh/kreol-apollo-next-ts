@@ -26,7 +26,7 @@ export const Searchbar = () => {
   }, [search, loadSearch]);
 
   return (
-    <div className={styles.searchbar}>
+    <div className={styles.searchbar} data-cy="search">
       <Form.Input
         placeholder="Start typing here..."
         type="text"
@@ -46,7 +46,11 @@ export const Searchbar = () => {
             definition && (
               <div key={definition.id} className="content">
                 <Link href={`/word/${encodeURIComponent(definition.word)}`}>
-                  <a href={`/word/${encodeURIComponent(definition.word)}`} className={styles.word}>
+                  <a
+                    href={`/word/${encodeURIComponent(definition.word)}`}
+                    className={styles.word}
+                    data-cy={definition.word}
+                  >
                     {definition.word}
                   </a>
                 </Link>

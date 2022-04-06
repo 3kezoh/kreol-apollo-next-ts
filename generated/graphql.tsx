@@ -27,7 +27,7 @@ export type Definition = {
   word: Scalars["String"];
   meaning: Scalars["String"];
   example?: Maybe<Scalars["String"]>;
-  language: Scalars["String"];
+  translation: Scalars["String"];
   author: User;
   score: Scalars["Int"];
   createdAt: Scalars["Date"];
@@ -62,7 +62,7 @@ export type MutationCreateDefinitionArgs = {
   word: Scalars["String"];
   meaning: Scalars["String"];
   example?: Maybe<Scalars["String"]>;
-  language: Scalars["String"];
+  translation: Scalars["String"];
 };
 
 export type MutationDeleteDefinitionArgs = {
@@ -228,7 +228,7 @@ export type DefinitionFieldsFragment = {
 export type MetaDefinitionFieldsFragment = {
   __typename?: "Definition";
   action?: Maybe<number>;
-  language: string;
+  translation: string;
   score: number;
   createdAt: any;
 };
@@ -237,7 +237,7 @@ export type CreateDefinitionMutationVariables = Exact<{
   word: Scalars["String"];
   meaning: Scalars["String"];
   example?: Maybe<Scalars["String"]>;
-  language: Scalars["String"];
+  translation: Scalars["String"];
 }>;
 
 export type CreateDefinitionMutation = {
@@ -349,7 +349,7 @@ export const CoreDefinitionFieldsFragmentDoc = gql`
 export const MetaDefinitionFieldsFragmentDoc = gql`
   fragment MetaDefinitionFields on Definition {
     action
-    language
+    translation
     score
     createdAt
   }
@@ -456,9 +456,9 @@ export const CreateDefinitionDocument = gql`
     $word: String!
     $meaning: String!
     $example: String
-    $language: String!
+    $translation: String!
   ) {
-    createDefinition(word: $word, meaning: $meaning, example: $example, language: $language) {
+    createDefinition(word: $word, meaning: $meaning, example: $example, translation: $translation) {
       id
     }
   }
@@ -484,7 +484,7 @@ export type CreateDefinitionMutationFn = Apollo.MutationFunction<
  *      word: // value for 'word'
  *      meaning: // value for 'meaning'
  *      example: // value for 'example'
- *      language: // value for 'language'
+ *      translation: // value for 'translation'
  *   },
  * });
  */

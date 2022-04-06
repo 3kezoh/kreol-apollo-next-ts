@@ -14,12 +14,12 @@ import styles from "./Definition.module.css";
 
 const DATE_FORMAT = "d MMMM yyyy";
 
-type Props = { data: DefinitionFieldsFragment };
+type Props = { data: DefinitionFieldsFragment; reportConfirmation?: boolean };
 
-export const Definition = ({ data }: Props) => {
+export const Definition = ({ data, reportConfirmation }: Props) => {
   const { user, open } = useAuth();
   const router = useRouter();
-  const { id, word, meaning, example, author, language, createdAt } = data;
+  const { id, word, meaning, example, author, translation, createdAt } = data;
   const [score, setScore] = useState(data.score);
   const [action, setAction] = useState(data.action);
   const date = format(new Date(createdAt), DATE_FORMAT, { locale });
@@ -41,7 +41,7 @@ export const Definition = ({ data }: Props) => {
   });
 
   const _vote = (action: -1 | 0 | 1) => {
-    if (!user.isAuthenticated) return router.push("/signup");
+    if (!user.isAuthenticated) return open();
     return vote({ variables: { definition: id, action } });
   };
 
@@ -55,8 +55,8 @@ export const Definition = ({ data }: Props) => {
   };
 
   return (
-    <Content renderAs="article" className={styles.definition}>
-      <h1>
+    <Content renderAs="article" className={styles.definition} data-cy="definition">
+      <h1 data-cy="word">
         <Link href={`/word/${encodeURIComponent(word)}`}>{word}</Link>
       </h1>
       <p>{meaning}</p>
@@ -73,24 +73,38 @@ export const Definition = ({ data }: Props) => {
             query: { id: author.id },
           }}
         >
-          {author.name}
+          <a data-cy="author">{author.name}</a>
         </Link>
       </p>
       <div className={styles.buttons}>
-        <Button onClick={action === 1 ? unvote : upvote}>{action === 1 ? "↑" : "-"}</Button>
-        <p className={styles.score}>{score}</p>
-        <Button onClick={action === -1 ? unvote : downvote}>{action === -1 ? "↓" : "-"}</Button>
+        <Button
+          onClick={action === 1 ? unvote : upvote}
+          data-cy={action === 1 ? `unvote-${word}` : `upvote-${word}`}
+        >
+          {action === 1 ? "↑" : "-"}
+        </Button>
+        <p className={styles.score} data-cy={`score-${word}`}>
+          {score}
+        </p>
+        <Button
+          onClick={action === -1 ? unvote : downvote}
+          data-cy={action === -1 ? `unvote-${word}` : `downvote-${word}`}
+        >
+          {action === -1 ? "↓" : "-"}
+        </Button>
       </div>
       <Element display="flex" flexDirection="row" alignItems="center">
-        <div className={styles.language}>
-          {language === "fr" ? <span>&#x1F1EB;&#x1F1F7;</span> : <span>&#x1F1EC;&#x1F1EB;</span>}
+        <div className={styles.translation}>
+          {translation === "fr" ? <span>&#x1F1EB;&#x1F1F7;</span> : <span>&#x1F1EC;&#x1F1EB;</span>}
           &#x27A1;
-          {language === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
+          {translation === "fr" ? <span>&#x1F1EC;&#x1F1EB;</span> : <span>&#x1F1EB;&#x1F1F7;</span>}
         </div>
         <div className={styles.reportButton}>
-          <Button color="danger" outlined onClick={onReport}>
-            Report
-          </Button>
+          {!reportConfirmation && (
+            <Button color="danger" outlined onClick={onReport} data-cy="report">
+              Report
+            </Button>
+          )}
         </div>
       </Element>
     </Content>

@@ -1,0 +1,2 @@
+2022-04-06T14:05:02.800+0000	connected to: mongodb://localhost:27017/kreol
+2022-04-06T14:05:02.802+0000	Failed: (Unauthorized) command listCollections requires authentication

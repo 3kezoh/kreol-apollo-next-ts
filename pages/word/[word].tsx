@@ -5,7 +5,7 @@ import Head from "next/head";
 const Word = () => {
   const { word, page } = useQuery();
   const pages = usePages({ word });
-  const definitions = useDefinitions({ page, word });
+  const [definitions] = useDefinitions({ page, word });
 
   return (
     <>

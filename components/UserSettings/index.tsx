@@ -6,7 +6,9 @@ export const UserSettings = ({ user }: Props) => {
   if (user) {
     return (
       <div className={styles.settings}>
-        <div className={styles.name}>{user.name}</div>
+        <div className={styles.name} data-cy="username">
+          {user.name}
+        </div>
       </div>
     );
   }

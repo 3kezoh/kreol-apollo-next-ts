@@ -1,6 +1,7 @@
 export * as Auth from "./Auth";
 export * as Bulma from "./Bulma";
 export * from "./DefineButton";
+export * from "./DefineForm";
 export * from "./Definition";
 export * from "./EditableDefinition";
 export * from "./Footer";

@@ -1,6 +1,7 @@
 import { Dropdown } from "@Bulma";
 import Link from "next/link";
 import React, { useState } from "react";
+import { Button } from "react-bulma-components";
 import styles from "./Browse.module.css";
 
 const Browse = () => {
@@ -8,17 +9,15 @@ const Browse = () => {
   const [active, setActive] = useState(false);
 
   return (
-    <Dropdown hoverable active={active}>
-      <button
-        className={styles.button}
-        type="button"
+    <Dropdown hoverable active={active} data-cy="browse">
+      <Button
         aria-haspopup="true"
         aria-controls="alphabet-dropdown"
         onClick={() => setActive(!active)}
         onBlur={() => setActive(false)}
       >
         Browse
-      </button>
+      </Button>
       <Dropdown.Menu id="alphabet-dropdown">
         <Dropdown.Content>
           <Dropdown.Item>
@@ -30,6 +29,7 @@ const Browse = () => {
                       href={`/popular/${encodeURIComponent(letter)}`}
                       className={styles.letter}
                       role="menuitem"
+                      data-cy={`${letter}`}
                     >
                       {letter}
                     </a>

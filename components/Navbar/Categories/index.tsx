@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useState } from "react";
+import { Button } from "react-bulma-components";
 import { Dropdown } from "../../Bulma/Dropdown";
 import styles from "./Categories.module.css";
 
@@ -9,7 +10,7 @@ export const Categories = () => {
 
   return (
     <Dropdown hoverable active={active}>
-      <button
+      <Button
         className={styles.button}
         type="button"
         aria-haspopup="true"
@@ -18,7 +19,7 @@ export const Categories = () => {
         onBlur={() => setActive(false)}
       >
         Categories
-      </button>
+      </Button>
       <Dropdown.Menu id="categorie-dropdown">
         <Dropdown.Content>
           <Dropdown.Item>
